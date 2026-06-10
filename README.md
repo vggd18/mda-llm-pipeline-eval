@@ -74,6 +74,8 @@ python -m src.run_experiments
 
 Os nomes exatos dos modelos locais podem variar; ajuste o campo `model_id` conforme o que estiver instalado.
 
+Importante: a execucao padrao com `heuristic_baseline` serve para validar o pipeline e gerar arquivos de exemplo. Nao use esses numeros como conclusao empirica da comparacao com o paper. Para conclusoes, habilite pelo menos um provider real (`openai`, `ollama` ou `openai_compatible`).
+
 Saidas geradas:
 
 - `results/raw_results.csv`

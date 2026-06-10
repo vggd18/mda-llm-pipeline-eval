@@ -13,11 +13,15 @@ def write_figures(raw: pd.DataFrame, summary: pd.DataFrame, out_dir: Path) -> No
         return
 
     out_dir.mkdir(parents=True, exist_ok=True)
+    title_suffix = ""
+    if "result_status" in raw.columns and not (raw["result_status"] == "empirical_model_run").any():
+        title_suffix = " (baseline apenas)"
 
     def bar(data, x, y, title, filename):
         plt.figure(figsize=(9, 5))
         data.plot(kind="bar", x=x, y=y, legend=False)
-        plt.title(title)
+        plt.title(title + title_suffix)
+        plt.ylim(bottom=0)
         plt.tight_layout()
         plt.savefig(out_dir / filename)
         plt.close()

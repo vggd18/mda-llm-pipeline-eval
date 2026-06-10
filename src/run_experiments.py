@@ -29,13 +29,35 @@ from src.utils.plotting import write_figures
 LOGGER = logging.getLogger(__name__)
 
 
+REAL_PROVIDERS = {"openai", "ollama", "openai_compatible"}
+
+
 def _estimate_cost(model: dict, input_tokens: int, output_tokens: int) -> float:
     in_cost = float(model.get("cost_per_1k_input_tokens_usd") or 0)
     out_cost = float(model.get("cost_per_1k_output_tokens_usd") or 0)
     return (input_tokens / 1000 * in_cost) + (output_tokens / 1000 * out_cost)
 
 
+def _coverage(expected: set[str], artifact: str) -> float:
+    if not expected:
+        return 0.0
+    artifact_lower = (artifact or "").lower()
+    hits = sum(1 for term in expected if term in artifact_lower)
+    return hits / len(expected)
+
+
+def _strip_python_comments(code: str) -> str:
+    lines = []
+    for line in (code or "").splitlines():
+        stripped = line.strip()
+        if not stripped.startswith("#"):
+            lines.append(line)
+    return "\n".join(lines)
+
+
 def _evaluate(row: dict, gold: dict, output, elapsed: float, model: dict, experiment: str) -> dict:
+    provider = model.get("provider", "")
+    result_status = "empirical_model_run" if provider in REAL_PROVIDERS else "baseline_or_mock_only"
     expected_entities = split_terms(gold.get("expected_entities", ""))
     predicted_entities = split_terms(output.extracted_entities)
     precision, recall, f1 = precision_recall_f1(expected_entities, predicted_entities)
@@ -47,11 +69,14 @@ def _evaluate(row: dict, gold: dict, output, elapsed: float, model: dict, experi
     code_rate = contains_expected_fragments(output.code, gold.get("expected_code_contains", ""))
     syntax_errors = count_syntax_errors(output.code)
     semantic_expected = split_terms(gold.get("expected_semantic_rules", ""))
-    semantic_errors = 0 if semantic_expected else 1
+    semantic_coverage = _coverage(semantic_expected, output.code + "\n" + dsl_text)
+    semantic_errors = 0 if semantic_coverage >= 0.5 else 1
     inconsistencies = 0
     if experiment == "D_business_rule_change":
-        changed_rule = row.get("changed_business_rule", "")
-        inconsistencies = 0 if changed_rule and changed_rule in output.code else 1
+        changed_rule_terms = split_terms(row.get("changed_business_rule", ""))
+        code_without_comments = _strip_python_comments(output.code)
+        changed_rule_coverage = _coverage(changed_rule_terms, code_without_comments)
+        inconsistencies = 0 if changed_rule_coverage >= 0.5 else 1
 
     stage_failures = sum(
         [
@@ -70,6 +95,8 @@ def _evaluate(row: dict, gold: dict, output, elapsed: float, model: dict, experi
         "case_id": row["case_id"],
         "difficulty": row.get("difficulty", ""),
         "model": model["name"],
+        "provider": provider,
+        "result_status": result_status,
         "experiment": experiment,
         "input_cim": row.get("cim_text", ""),
         "generated_entities": output.extracted_entities,
@@ -84,6 +111,7 @@ def _evaluate(row: dict, gold: dict, output, elapsed: float, model: dict, experi
         "code_correct_rate": code_rate,
         "syntax_errors": syntax_errors,
         "semantic_errors": semantic_errors,
+        "semantic_rule_coverage": semantic_coverage,
         "business_rule_inconsistencies": inconsistencies,
         "execution_time_seconds": elapsed,
         "estimated_cost_usd": _estimate_cost(model, input_tokens, output_tokens),
@@ -155,6 +183,7 @@ def main() -> None:
             code_correct_rate=("code_correct_rate", "mean"),
             syntax_errors=("syntax_errors", "mean"),
             semantic_errors=("semantic_errors", "mean"),
+            semantic_rule_coverage=("semantic_rule_coverage", "mean"),
             business_rule_inconsistencies=("business_rule_inconsistencies", "mean"),
             execution_time_seconds=("execution_time_seconds", "mean"),
             estimated_cost_usd=("estimated_cost_usd", "sum"),
@@ -164,6 +193,27 @@ def main() -> None:
     )
     summary["model_experiment"] = summary["model"] + " / " + summary["experiment"]
     summary.to_csv(results_dir / "summary_metrics.csv", index=False, encoding="utf-8")
+
+    validity_notes = pd.DataFrame(
+        [
+            {
+                "scope": "default_run",
+                "warning": "Se apenas providers local/mock estiverem habilitados, os resultados servem para validar o pipeline, nao para conclusao empirica.",
+                "action": "Habilite pelo menos um provider real em config/models.yaml: openai, ollama ou openai_compatible.",
+            },
+            {
+                "scope": "bert_paper_reference",
+                "warning": "bert_paper_reference e mock_llm nao sao BERT/LLM reais; sao placeholders deterministivos.",
+                "action": "Nao use esses resultados como comparacao com o paper na apresentacao.",
+            },
+            {
+                "scope": "business_rule_change",
+                "warning": "A metrica agora ignora comentarios Python; mencionar a regra em comentario nao conta como consistencia.",
+                "action": "Verifique business_rule_inconsistencies e semantic_rule_coverage.",
+            },
+        ]
+    )
+    validity_notes.to_csv(results_dir / "validity_warnings.csv", index=False, encoding="utf-8")
 
     error_analysis = raw[raw["stage_failure_count"] > 0].copy()
     error_analysis["error_category"] = error_analysis.apply(

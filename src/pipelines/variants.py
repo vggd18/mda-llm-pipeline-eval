@@ -1,4 +1,6 @@
 from dataclasses import dataclass
+import keyword
+import re
 
 from src.pipelines.dsl import (
     UmlClass,
@@ -82,11 +84,31 @@ class PipelineOutput:
 
 
 def _code_from_terms(class_name: str, terms: list[str], rule: str = "") -> str:
-    fields = terms[:5] or ["campo"]
+    fields = [_python_identifier(term) for term in (terms[:5] or ["campo"])]
     assignments = "\n".join(f"        self.{field} = {field}" for field in fields)
     args = ", ".join(fields)
     rule_comment = f"    # Regra de negocio: {rule}\n" if rule else ""
-    return f"class {class_name}:\n{rule_comment}    def __init__(self, {args}):\n{assignments}\n"
+    return f"class {_python_class_name(class_name)}:\n{rule_comment}    def __init__(self, {args}):\n{assignments}\n"
+
+
+def _python_identifier(value: str) -> str:
+    cleaned = re.sub(r"\W+", "_", (value or "").strip().lower()).strip("_")
+    if not cleaned:
+        cleaned = "value"
+    if cleaned[0].isdigit():
+        cleaned = f"value_{cleaned}"
+    if keyword.iskeyword(cleaned):
+        cleaned = f"{cleaned}_value"
+    return cleaned
+
+
+def _python_class_name(value: str) -> str:
+    cleaned = re.sub(r"\W+", " ", value or "Artefato")
+    parts = [part for part in cleaned.split() if part]
+    name = "".join(part[:1].upper() + part[1:] for part in parts) or "Artefato"
+    if name[0].isdigit():
+        name = f"Class{name}"
+    return name
 
 
 def _code_from_dsl(dsl: str, rule: str = "") -> str:
@@ -97,17 +119,17 @@ def _code_from_dsl(dsl: str, rule: str = "") -> str:
         relation_attrs.setdefault(relation.source, []).append(relation.target[:1].lower() + relation.target[1:])
 
     for uml_class in model.classes:
-        attributes = list(dict.fromkeys(uml_class.attributes + relation_attrs.get(uml_class.name, [])))
+        attributes = [_python_identifier(attribute) for attribute in list(dict.fromkeys(uml_class.attributes + relation_attrs.get(uml_class.name, [])))]
         init_args = ", ".join(attributes)
         signature = f"    def __init__(self, {init_args}):" if init_args else "    def __init__(self):"
         assignments = [f"        self.{attribute} = {attribute}" for attribute in attributes] or ["        pass"]
-        methods = [f"\n    def {make_method_name(method)}(self):\n        pass" for method in uml_class.methods]
+        methods = [f"\n    def {_python_identifier(make_method_name(method))}(self):\n        pass" for method in uml_class.methods]
         parent = ""
         inheritance = next((rel for rel in model.relations if rel.source == uml_class.name and rel.relation_type == "inheritance"), None)
         if inheritance:
-            parent = f"({inheritance.target})"
+            parent = f"({_python_class_name(inheritance.target)})"
         rule_comment = f"    # Regra de negocio: {rule}\n" if rule else ""
-        blocks.append(f"class {uml_class.name}{parent}:\n{rule_comment}{signature}\n" + "\n".join(assignments) + "".join(methods) + "\n")
+        blocks.append(f"class {_python_class_name(uml_class.name)}{parent}:\n{rule_comment}{signature}\n" + "\n".join(assignments) + "".join(methods) + "\n")
     return "\n".join(blocks) if blocks else _code_from_terms("Artefato", [], rule)
 
 
@@ -169,6 +191,6 @@ def run_multilayer_dsl_pipeline(cim_text: str, model: BaseModelClient) -> Pipeli
 
 
 def apply_business_rule_change(output: PipelineOutput, changed_rule: str, user_modification: str) -> PipelineOutput:
-    changed_code = output.code + f"\n# Mudanca posterior: {changed_rule}\n# Modificacao do usuario: {user_modification}\n"
-    notes = output.notes + " | business_rule_change_applied"
+    changed_code = output.code + "\n# TODO: regra de negocio mudou; artefato requer reconciliacao manual.\n"
+    notes = output.notes + f" | business_rule_change_requested={changed_rule} | user_modification={user_modification}"
     return PipelineOutput(output.extracted_entities, output.requirements_dsl, output.design_dsl, changed_code, notes)

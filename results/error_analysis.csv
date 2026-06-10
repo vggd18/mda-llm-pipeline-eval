@@ -1,5 +1,48 @@
-case_id,difficulty,model,experiment,input_cim,generated_entities,generated_requirements_dsl,generated_design_dsl,generated_code,entity_precision,entity_recall,entity_f1,dsl_correct_rate,dsl_syntax_validity,code_correct_rate,syntax_errors,semantic_errors,business_rule_inconsistencies,execution_time_seconds,estimated_cost_usd,end_to_end_success,stage_failure_count,notes,error_category
-scenario_2_editorial,medium,heuristic_baseline,A_full_pipeline,"An editorial document has sections, paragraphs, figures and references. An author writes the document and an editor reviews and validates it.",editorial;document;sections;paragraphs;figures;references;author;writes;editor;reviews;validates,"Class Document:
+case_id,difficulty,model,provider,result_status,experiment,input_cim,generated_entities,generated_requirements_dsl,generated_design_dsl,generated_code,entity_precision,entity_recall,entity_f1,dsl_correct_rate,dsl_syntax_validity,code_correct_rate,syntax_errors,semantic_errors,semantic_rule_coverage,business_rule_inconsistencies,execution_time_seconds,estimated_cost_usd,end_to_end_success,stage_failure_count,notes,error_category
+scenario_1_hardware,medium,heuristic_baseline,local,baseline_or_mock_only,D_business_rule_change,"A personal computer contains a motherboard, processor, memory modules, storage devices and peripheral devices. The computer starts, shuts down and reports hardware status.",personal;computer;contains;motherboard;processor;memory;modules;storage;devices;peripheral;starts;shuts;down;reports;hardware;status,"Class Computer:
+Attributes: personal, contains, modules, devices, starts
+Methods: start
+Class Motherboard:
+Class Processor:
+Class Memory:
+Class StorageDevice:
+Relation: Computer composition Motherboard
+Relation: Computer association Processor",,"class Computer:
+    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
+    def __init__(self, personal, contains, modules, devices, starts, motherboard, processor):
+        self.personal = personal
+        self.contains = contains
+        self.modules = modules
+        self.devices = devices
+        self.starts = starts
+        self.motherboard = motherboard
+        self.processor = processor
+    def start(self):
+        pass
+
+class Motherboard:
+    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
+    def __init__(self):
+        pass
+
+class Processor:
+    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
+    def __init__(self):
+        pass
+
+class Memory:
+    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
+    def __init__(self):
+        pass
+
+class StorageDevice:
+    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
+    def __init__(self):
+        pass
+
+# TODO: regra de negocio mudou; artefato requer reconciliacao manual.
+",0.4375,0.7777777777777778,0.56,0.7857142857142857,1.0,1.0,0,1,0.0,1,7.020000339252874e-05,0.0,0,1,heuristic_dsl | business_rule_change_requested=Storage devices may be external or internal and peripherals can be optional | user_modification=User manually renamed StorageDevice to Drive in the DSL.,business_rule
+scenario_2_editorial,medium,heuristic_baseline,local,baseline_or_mock_only,A_full_pipeline,"An editorial document has sections, paragraphs, figures and references. An author writes the document and an editor reviews and validates it.",editorial;document;sections;paragraphs;figures;references;author;writes;editor;reviews;validates,"Class Document:
 Attributes: editorial, sections, paragraphs, figures, references
 Methods: write, review, validate
 Class Section:
@@ -43,8 +86,8 @@ class Reference:
     # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
     def __init__(self):
         pass
-",0.2727272727272727,0.3333333333333333,0.3,0.9333333333333333,1.0,0.5,0,0,0,7.65999939176254e-05,0.0,0,1,heuristic_dsl,quality
-scenario_2_editorial,medium,heuristic_baseline,B_no_dsl,"An editorial document has sections, paragraphs, figures and references. An author writes the document and an editor reviews and validates it.",editorial;document;sections;paragraphs;figures;references;author;writes;editor;reviews;validates,,,"class Editorial:
+",0.2727272727272727,0.3333333333333333,0.3,0.9333333333333333,1.0,0.5,0,1,0.0,0,8.850000449456275e-05,0.0,0,1,heuristic_dsl,quality
+scenario_2_editorial,medium,heuristic_baseline,local,baseline_or_mock_only,B_no_dsl,"An editorial document has sections, paragraphs, figures and references. An author writes the document and an editor reviews and validates it.",editorial;document;sections;paragraphs;figures;references;author;writes;editor;reviews;validates,,,"class Editorial:
     # Regra de negocio: Gerado diretamente do CIM sem DSL
     def __init__(self, document, sections, paragraphs, figures, references):
         self.document = document
@@ -52,8 +95,8 @@ scenario_2_editorial,medium,heuristic_baseline,B_no_dsl,"An editorial document h
         self.paragraphs = paragraphs
         self.figures = figures
         self.references = references
-",0.2727272727272727,0.3333333333333333,0.3,0.0,0.0,0.25,0,0,0,1.6099998902063817e-05,0.0,0,2,heuristic_direct_code,quality
-scenario_2_editorial,medium,heuristic_baseline,C_multilayer_dsl,"An editorial document has sections, paragraphs, figures and references. An author writes the document and an editor reviews and validates it.",editorial;document;sections;paragraphs;figures;references;author;writes;editor;reviews;validates,"RequirementEntity: Document
+",0.2727272727272727,0.3333333333333333,0.3,0.0,0.0,0.25,0,1,0.0,0,2.0699997548945248e-05,0.0,0,2,heuristic_direct_code,quality
+scenario_2_editorial,medium,heuristic_baseline,local,baseline_or_mock_only,C_multilayer_dsl,"An editorial document has sections, paragraphs, figures and references. An author writes the document and an editor reviews and validates it.",editorial;document;sections;paragraphs;figures;references;author;writes;editor;reviews;validates,"RequirementEntity: Document
 RequirementEntity: Section
 RequirementEntity: Paragraph
 RequirementEntity: Figure
@@ -102,8 +145,8 @@ class Reference:
     # Regra de negocio: Derivada de DSL de requisitos e design
     def __init__(self):
         pass
-",0.2727272727272727,0.3333333333333333,0.3,0.06666666666666667,1.0,0.5,0,0,0,6.270000449148938e-05,0.0,0,1,heuristic_multilayer_dsl,quality
-scenario_2_editorial,medium,heuristic_baseline,E_generalization,"An editorial document has sections, paragraphs, figures and references. An author writes the document and an editor reviews and validates it.",editorial;document;sections;paragraphs;figures;references;author;writes;editor;reviews;validates,"Class Document:
+",0.2727272727272727,0.3333333333333333,0.3,0.06666666666666667,1.0,0.5,0,1,0.0,0,8.099999831756577e-05,0.0,0,1,heuristic_multilayer_dsl,quality
+scenario_2_editorial,medium,heuristic_baseline,local,baseline_or_mock_only,E_generalization,"An editorial document has sections, paragraphs, figures and references. An author writes the document and an editor reviews and validates it.",editorial;document;sections;paragraphs;figures;references;author;writes;editor;reviews;validates,"Class Document:
 Attributes: editorial, sections, paragraphs, figures, references
 Methods: write, review, validate
 Class Section:
@@ -147,8 +190,8 @@ class Reference:
     # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
     def __init__(self):
         pass
-",0.2727272727272727,0.3333333333333333,0.3,0.9333333333333333,1.0,0.5,0,0,0,5.389999569160864e-05,0.0,0,1,heuristic_dsl,quality
-scenario_2_editorial,medium,heuristic_baseline,F_model_comparison,"An editorial document has sections, paragraphs, figures and references. An author writes the document and an editor reviews and validates it.",editorial;document;sections;paragraphs;figures;references;author;writes;editor;reviews;validates,"Class Document:
+",0.2727272727272727,0.3333333333333333,0.3,0.9333333333333333,1.0,0.5,0,1,0.0,0,7.259999983943999e-05,0.0,0,1,heuristic_dsl,quality
+scenario_2_editorial,medium,heuristic_baseline,local,baseline_or_mock_only,F_model_comparison,"An editorial document has sections, paragraphs, figures and references. An author writes the document and an editor reviews and validates it.",editorial;document;sections;paragraphs;figures;references;author;writes;editor;reviews;validates,"Class Document:
 Attributes: editorial, sections, paragraphs, figures, references
 Methods: write, review, validate
 Class Section:
@@ -192,8 +235,8 @@ class Reference:
     # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
     def __init__(self):
         pass
-",0.2727272727272727,0.3333333333333333,0.3,0.9333333333333333,1.0,0.5,0,0,0,5.4100004490464926e-05,0.0,0,1,heuristic_dsl,quality
-scenario_2_editorial,medium,heuristic_baseline,D_business_rule_change,"An editorial document has sections, paragraphs, figures and references. An author writes the document and an editor reviews and validates it.",editorial;document;sections;paragraphs;figures;references;author;writes;editor;reviews;validates,"Class Document:
+",0.2727272727272727,0.3333333333333333,0.3,0.9333333333333333,1.0,0.5,0,1,0.0,0,6.829999620094895e-05,0.0,0,1,heuristic_dsl,quality
+scenario_2_editorial,medium,heuristic_baseline,local,baseline_or_mock_only,D_business_rule_change,"An editorial document has sections, paragraphs, figures and references. An author writes the document and an editor reviews and validates it.",editorial;document;sections;paragraphs;figures;references;author;writes;editor;reviews;validates,"Class Document:
 Attributes: editorial, sections, paragraphs, figures, references
 Methods: write, review, validate
 Class Section:
@@ -238,10 +281,9 @@ class Reference:
     def __init__(self):
         pass
 
-# Mudanca posterior: Reviewer approval is required before editor validation
-# Modificacao do usuario: User added Reviewer as a class after initial generation.
-",0.2727272727272727,0.3333333333333333,0.3,0.9333333333333333,1.0,0.5,0,0,0,5.8400000852998346e-05,0.0,0,1,heuristic_dsl | business_rule_change_applied,quality
-scenario_3_library,complex,heuristic_baseline,A_full_pipeline,"A municipal library manages books, members and loans. A member borrows books, returns loans and may pay penalties for late returns.",municipal;library;manages;books;members;loans;member;borrows;returns;may;pay;penalties;for;late,"Class Library:
+# TODO: regra de negocio mudou; artefato requer reconciliacao manual.
+",0.2727272727272727,0.3333333333333333,0.3,0.9333333333333333,1.0,0.5,0,1,0.0,1,7.000000186963007e-05,0.0,0,2,heuristic_dsl | business_rule_change_requested=Reviewer approval is required before editor validation | user_modification=User added Reviewer as a class after initial generation.,business_rule
+scenario_3_library,complex,heuristic_baseline,local,baseline_or_mock_only,A_full_pipeline,"A municipal library manages books, members and loans. A member borrows books, returns loans and may pay penalties for late returns.",municipal;library;manages;books;members;loans;member;borrows;returns;may;pay;penalties;for;late,"Class Library:
 Attributes: municipal, manages, books, members, loans
 Methods: manage, borrow, return, pay
 Class Book:
@@ -262,7 +304,7 @@ Relation: Library association Member",,"class Library:
         pass
     def borrow(self):
         pass
-    def return(self):
+    def return_value(self):
         pass
     def pay(self):
         pass
@@ -281,8 +323,8 @@ class Loan:
     # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
     def __init__(self):
         pass
-",0.14285714285714285,0.2857142857142857,0.19047619047619047,0.8333333333333334,1.0,1.0,1,0,0,6.44999963697046e-05,0.0,0,2,heuristic_dsl,syntax
-scenario_3_library,complex,heuristic_baseline,B_no_dsl,"A municipal library manages books, members and loans. A member borrows books, returns loans and may pay penalties for late returns.",municipal;library;manages;books;members;loans;member;borrows;returns;may;pay;penalties;for;late,,,"class Municipal:
+",0.14285714285714285,0.2857142857142857,0.19047619047619047,0.8333333333333334,1.0,1.0,0,1,0.0,0,7.210000330815092e-05,0.0,0,1,heuristic_dsl,quality
+scenario_3_library,complex,heuristic_baseline,local,baseline_or_mock_only,B_no_dsl,"A municipal library manages books, members and loans. A member borrows books, returns loans and may pay penalties for late returns.",municipal;library;manages;books;members;loans;member;borrows;returns;may;pay;penalties;for;late,,,"class Municipal:
     # Regra de negocio: Gerado diretamente do CIM sem DSL
     def __init__(self, library, manages, books, members, loans):
         self.library = library
@@ -290,8 +332,8 @@ scenario_3_library,complex,heuristic_baseline,B_no_dsl,"A municipal library mana
         self.books = books
         self.members = members
         self.loans = loans
-",0.14285714285714285,0.2857142857142857,0.19047619047619047,0.0,0.0,0.0,0,0,0,2.4300003133248538e-05,0.0,0,2,heuristic_direct_code,quality
-scenario_3_library,complex,heuristic_baseline,C_multilayer_dsl,"A municipal library manages books, members and loans. A member borrows books, returns loans and may pay penalties for late returns.",municipal;library;manages;books;members;loans;member;borrows;returns;may;pay;penalties;for;late,"RequirementEntity: Library
+",0.14285714285714285,0.2857142857142857,0.19047619047619047,0.0,0.0,0.0,0,1,0.0,0,2.0499996026046574e-05,0.0,0,2,heuristic_direct_code,quality
+scenario_3_library,complex,heuristic_baseline,local,baseline_or_mock_only,C_multilayer_dsl,"A municipal library manages books, members and loans. A member borrows books, returns loans and may pay penalties for late returns.",municipal;library;manages;books;members;loans;member;borrows;returns;may;pay;penalties;for;late,"RequirementEntity: Library
 RequirementEntity: Book
 RequirementEntity: Member
 RequirementEntity: Loan
@@ -316,7 +358,7 @@ Relation: Library association Member","class Library:
         pass
     def borrow(self):
         pass
-    def return(self):
+    def return_value(self):
         pass
     def pay(self):
         pass
@@ -335,8 +377,8 @@ class Loan:
     # Regra de negocio: Derivada de DSL de requisitos e design
     def __init__(self):
         pass
-",0.14285714285714285,0.2857142857142857,0.19047619047619047,0.3333333333333333,1.0,1.0,1,0,0,7.390000246232376e-05,0.0,0,2,heuristic_multilayer_dsl,syntax
-scenario_3_library,complex,heuristic_baseline,E_generalization,"A municipal library manages books, members and loans. A member borrows books, returns loans and may pay penalties for late returns.",municipal;library;manages;books;members;loans;member;borrows;returns;may;pay;penalties;for;late,"Class Library:
+",0.14285714285714285,0.2857142857142857,0.19047619047619047,0.3333333333333333,1.0,1.0,0,1,0.0,0,6.989999383222312e-05,0.0,0,1,heuristic_multilayer_dsl,quality
+scenario_3_library,complex,heuristic_baseline,local,baseline_or_mock_only,E_generalization,"A municipal library manages books, members and loans. A member borrows books, returns loans and may pay penalties for late returns.",municipal;library;manages;books;members;loans;member;borrows;returns;may;pay;penalties;for;late,"Class Library:
 Attributes: municipal, manages, books, members, loans
 Methods: manage, borrow, return, pay
 Class Book:
@@ -357,7 +399,7 @@ Relation: Library association Member",,"class Library:
         pass
     def borrow(self):
         pass
-    def return(self):
+    def return_value(self):
         pass
     def pay(self):
         pass
@@ -376,8 +418,8 @@ class Loan:
     # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
     def __init__(self):
         pass
-",0.14285714285714285,0.2857142857142857,0.19047619047619047,0.8333333333333334,1.0,1.0,1,0,0,5.9100006183143705e-05,0.0,0,2,heuristic_dsl,syntax
-scenario_3_library,complex,heuristic_baseline,F_model_comparison,"A municipal library manages books, members and loans. A member borrows books, returns loans and may pay penalties for late returns.",municipal;library;manages;books;members;loans;member;borrows;returns;may;pay;penalties;for;late,"Class Library:
+",0.14285714285714285,0.2857142857142857,0.19047619047619047,0.8333333333333334,1.0,1.0,0,1,0.0,0,6.649999704677612e-05,0.0,0,1,heuristic_dsl,quality
+scenario_3_library,complex,heuristic_baseline,local,baseline_or_mock_only,F_model_comparison,"A municipal library manages books, members and loans. A member borrows books, returns loans and may pay penalties for late returns.",municipal;library;manages;books;members;loans;member;borrows;returns;may;pay;penalties;for;late,"Class Library:
 Attributes: municipal, manages, books, members, loans
 Methods: manage, borrow, return, pay
 Class Book:
@@ -398,7 +440,7 @@ Relation: Library association Member",,"class Library:
         pass
     def borrow(self):
         pass
-    def return(self):
+    def return_value(self):
         pass
     def pay(self):
         pass
@@ -417,8 +459,8 @@ class Loan:
     # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
     def __init__(self):
         pass
-",0.14285714285714285,0.2857142857142857,0.19047619047619047,0.8333333333333334,1.0,1.0,1,0,0,5.319999763742089e-05,0.0,0,2,heuristic_dsl,syntax
-scenario_3_library,complex,heuristic_baseline,D_business_rule_change,"A municipal library manages books, members and loans. A member borrows books, returns loans and may pay penalties for late returns.",municipal;library;manages;books;members;loans;member;borrows;returns;may;pay;penalties;for;late,"Class Library:
+",0.14285714285714285,0.2857142857142857,0.19047619047619047,0.8333333333333334,1.0,1.0,0,1,0.0,0,7.049999840091914e-05,0.0,0,1,heuristic_dsl,quality
+scenario_3_library,complex,heuristic_baseline,local,baseline_or_mock_only,D_business_rule_change,"A municipal library manages books, members and loans. A member borrows books, returns loans and may pay penalties for late returns.",municipal;library;manages;books;members;loans;member;borrows;returns;may;pay;penalties;for;late,"Class Library:
 Attributes: municipal, manages, books, members, loans
 Methods: manage, borrow, return, pay
 Class Book:
@@ -439,7 +481,7 @@ Relation: Library association Member",,"class Library:
         pass
     def borrow(self):
         pass
-    def return(self):
+    def return_value(self):
         pass
     def pay(self):
         pass
@@ -459,67 +501,67 @@ class Loan:
     def __init__(self):
         pass
 
-# Mudanca posterior: Late loans create a penalty and block new borrowing until payment
-# Modificacao do usuario: User added Penalty to the generated DSL and code skeleton.
-",0.14285714285714285,0.2857142857142857,0.19047619047619047,0.8333333333333334,1.0,1.0,1,0,0,5.2100003813393414e-05,0.0,0,2,heuristic_dsl | business_rule_change_applied,syntax
-incomplete_coreference,incomplete,heuristic_baseline,A_full_pipeline,The class Car has several attributes. It also includes the getSpeed method.,class;car;attributes;getspeed;method,"Class Car:
-Attributes: class, attributes, getspeed, method",,"class Car:
+# TODO: regra de negocio mudou; artefato requer reconciliacao manual.
+",0.14285714285714285,0.2857142857142857,0.19047619047619047,0.8333333333333334,1.0,1.0,0,1,0.0,1,6.750000466126949e-05,0.0,0,2,heuristic_dsl | business_rule_change_requested=Late loans create a penalty and block new borrowing until payment | user_modification=User added Penalty to the generated DSL and code skeleton.,business_rule
+ambiguous_implicit_relation,ambiguous,heuristic_baseline,local,baseline_or_mock_only,D_business_rule_change,Each order contains multiple items. The customer receives a message when the order is confirmed.,order;contains;items;customer;receives;message;when;confirmed,"Class Order:
+Attributes: contains, items, receives, when, confirmed
+Methods: confirm, receive
+Class Item:
+Class Customer:
+Class Message:
+Relation: Order composition Item
+Relation: Order association Customer",,"class Order:
     # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self, class, attributes, getspeed, method):
-        self.class = class
-        self.attributes = attributes
-        self.getspeed = getspeed
-        self.method = method
-",0.6,1.0,0.7499999999999999,0.75,1.0,0.5,1,0,0,2.5300003471784294e-05,0.0,0,1,heuristic_dsl,syntax
-incomplete_coreference,incomplete,heuristic_baseline,B_no_dsl,The class Car has several attributes. It also includes the getSpeed method.,class;car;attributes;getspeed;method,,,"class Class:
+    def __init__(self, contains, items, receives, when, confirmed, item, customer):
+        self.contains = contains
+        self.items = items
+        self.receives = receives
+        self.when = when
+        self.confirmed = confirmed
+        self.item = item
+        self.customer = customer
+    def confirm(self):
+        pass
+    def receive(self):
+        pass
+
+class Item:
+    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
+    def __init__(self):
+        pass
+
+class Customer:
+    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
+    def __init__(self):
+        pass
+
+class Message:
+    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
+    def __init__(self):
+        pass
+
+# TODO: regra de negocio mudou; artefato requer reconciliacao manual.
+",0.5,0.8,0.6153846153846154,1.0,1.0,1.0,0,1,0.0,1,5.870000313734636e-05,0.0,0,1,heuristic_dsl | business_rule_change_requested=Confirmed orders may include digital and physical items | user_modification=User changed Item to OrderItem in generated artifact.,business_rule
+incomplete_coreference,incomplete,heuristic_baseline,local,baseline_or_mock_only,B_no_dsl,The class Car has several attributes. It also includes the getSpeed method.,class;car;attributes;getspeed;method,,,"class Class:
     # Regra de negocio: Gerado diretamente do CIM sem DSL
     def __init__(self, car, attributes, getspeed, method):
         self.car = car
         self.attributes = attributes
         self.getspeed = getspeed
         self.method = method
-",0.6,1.0,0.7499999999999999,0.0,0.0,0.0,0,0,0,1.5900004655122757e-05,0.0,0,1,heuristic_direct_code,quality
-incomplete_coreference,incomplete,heuristic_baseline,C_multilayer_dsl,The class Car has several attributes. It also includes the getSpeed method.,class;car;attributes;getspeed;method,"RequirementEntity: Car
-# TODO: extensão experimental; o artigo usa uma DSL intermediaria principal, nao multiplas camadas.","Class Car:
-Attributes: class, attributes, getspeed, method","class Car:
-    # Regra de negocio: Derivada de DSL de requisitos e design
-    def __init__(self, class, attributes, getspeed, method):
-        self.class = class
-        self.attributes = attributes
-        self.getspeed = getspeed
-        self.method = method
-",0.6,1.0,0.7499999999999999,0.25,1.0,0.5,1,0,0,2.1700005163438618e-05,0.0,0,1,heuristic_multilayer_dsl,syntax
-incomplete_coreference,incomplete,heuristic_baseline,E_generalization,The class Car has several attributes. It also includes the getSpeed method.,class;car;attributes;getspeed;method,"Class Car:
+",0.6,1.0,0.7499999999999999,0.0,0.0,0.0,0,1,0.0,0,1.5199999324977398e-05,0.0,0,1,heuristic_direct_code,quality
+incomplete_coreference,incomplete,heuristic_baseline,local,baseline_or_mock_only,D_business_rule_change,The class Car has several attributes. It also includes the getSpeed method.,class;car;attributes;getspeed;method,"Class Car:
 Attributes: class, attributes, getspeed, method",,"class Car:
     # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self, class, attributes, getspeed, method):
-        self.class = class
-        self.attributes = attributes
-        self.getspeed = getspeed
-        self.method = method
-",0.6,1.0,0.7499999999999999,0.75,1.0,0.5,1,0,0,1.8500002624932677e-05,0.0,0,1,heuristic_dsl,syntax
-incomplete_coreference,incomplete,heuristic_baseline,F_model_comparison,The class Car has several attributes. It also includes the getSpeed method.,class;car;attributes;getspeed;method,"Class Car:
-Attributes: class, attributes, getspeed, method",,"class Car:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self, class, attributes, getspeed, method):
-        self.class = class
-        self.attributes = attributes
-        self.getspeed = getspeed
-        self.method = method
-",0.6,1.0,0.7499999999999999,0.75,1.0,0.5,1,0,0,1.6500001947861165e-05,0.0,0,1,heuristic_dsl,syntax
-incomplete_coreference,incomplete,heuristic_baseline,D_business_rule_change,The class Car has several attributes. It also includes the getSpeed method.,class;car;attributes;getspeed;method,"Class Car:
-Attributes: class, attributes, getspeed, method",,"class Car:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self, class, attributes, getspeed, method):
-        self.class = class
+    def __init__(self, class_value, attributes, getspeed, method):
+        self.class_value = class_value
         self.attributes = attributes
         self.getspeed = getspeed
         self.method = method
 
-# Mudanca posterior: Car speed must be non-negative
-# Modificacao do usuario: User added speed but did not specify unit.
-",0.6,1.0,0.7499999999999999,0.75,1.0,0.5,1,0,0,1.889999839477241e-05,0.0,0,1,heuristic_dsl | business_rule_change_applied,syntax
-out_of_pattern_business_rules,out_of_pattern,heuristic_baseline,A_full_pipeline,A sensor event triggers alerts when readings are outside configured thresholds. Operators acknowledge alerts and may escalate incidents.,sensor;event;triggers;alerts;when;readings;are;outside;configured;thresholds;operators;acknowledge;may;escalate;incidents,"Class Figure:
+# TODO: regra de negocio mudou; artefato requer reconciliacao manual.
+",0.6,1.0,0.7499999999999999,0.75,1.0,0.5,0,1,0.0,1,2.600000152597204e-05,0.0,0,1,heuristic_dsl | business_rule_change_requested=Car speed must be non-negative | user_modification=User added speed but did not specify unit.,business_rule
+out_of_pattern_business_rules,out_of_pattern,heuristic_baseline,local,baseline_or_mock_only,A_full_pipeline,A sensor event triggers alerts when readings are outside configured thresholds. Operators acknowledge alerts and may escalate incidents.,sensor;event;triggers;alerts;when;readings;are;outside;configured;thresholds;operators;acknowledge;may;escalate;incidents,"Class Figure:
 Attributes: triggers, alerts, when, readings, are
 Methods: trigger, acknowledge, escalate
 Class SensorEvent:
@@ -529,13 +571,13 @@ Class Incident:
 Relation: Figure association SensorEvent
 Relation: Figure association Alert",,"class Figure:
     # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self, triggers, alerts, when, readings, are, sensorEvent, alert):
+    def __init__(self, triggers, alerts, when, readings, are, sensorevent, alert):
         self.triggers = triggers
         self.alerts = alerts
         self.when = when
         self.readings = readings
         self.are = are
-        self.sensorEvent = sensorEvent
+        self.sensorevent = sensorevent
         self.alert = alert
     def trigger(self):
         pass
@@ -563,8 +605,8 @@ class Incident:
     # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
     def __init__(self):
         pass
-",0.13333333333333333,0.2857142857142857,0.18181818181818182,0.9166666666666666,1.0,1.0,0,0,0,6.159999611554667e-05,0.0,0,1,heuristic_dsl,quality
-out_of_pattern_business_rules,out_of_pattern,heuristic_baseline,B_no_dsl,A sensor event triggers alerts when readings are outside configured thresholds. Operators acknowledge alerts and may escalate incidents.,sensor;event;triggers;alerts;when;readings;are;outside;configured;thresholds;operators;acknowledge;may;escalate;incidents,,,"class Sensor:
+",0.13333333333333333,0.2857142857142857,0.18181818181818182,0.9166666666666666,1.0,1.0,0,1,0.0,0,8.030000026337802e-05,0.0,0,1,heuristic_dsl,quality
+out_of_pattern_business_rules,out_of_pattern,heuristic_baseline,local,baseline_or_mock_only,B_no_dsl,A sensor event triggers alerts when readings are outside configured thresholds. Operators acknowledge alerts and may escalate incidents.,sensor;event;triggers;alerts;when;readings;are;outside;configured;thresholds;operators;acknowledge;may;escalate;incidents,,,"class Sensor:
     # Regra de negocio: Gerado diretamente do CIM sem DSL
     def __init__(self, event, triggers, alerts, when, readings):
         self.event = event
@@ -572,8 +614,8 @@ out_of_pattern_business_rules,out_of_pattern,heuristic_baseline,B_no_dsl,A senso
         self.alerts = alerts
         self.when = when
         self.readings = readings
-",0.13333333333333333,0.2857142857142857,0.18181818181818182,0.0,0.0,0.0,0,0,0,1.2299999070819467e-05,0.0,0,2,heuristic_direct_code,quality
-out_of_pattern_business_rules,out_of_pattern,heuristic_baseline,C_multilayer_dsl,A sensor event triggers alerts when readings are outside configured thresholds. Operators acknowledge alerts and may escalate incidents.,sensor;event;triggers;alerts;when;readings;are;outside;configured;thresholds;operators;acknowledge;may;escalate;incidents,"RequirementEntity: Figure
+",0.13333333333333333,0.2857142857142857,0.18181818181818182,0.0,0.0,0.0,0,1,0.0,0,1.889999839477241e-05,0.0,0,2,heuristic_direct_code,quality
+out_of_pattern_business_rules,out_of_pattern,heuristic_baseline,local,baseline_or_mock_only,C_multilayer_dsl,A sensor event triggers alerts when readings are outside configured thresholds. Operators acknowledge alerts and may escalate incidents.,sensor;event;triggers;alerts;when;readings;are;outside;configured;thresholds;operators;acknowledge;may;escalate;incidents,"RequirementEntity: Figure
 RequirementEntity: SensorEvent
 RequirementEntity: Alert
 RequirementEntity: Operator
@@ -588,13 +630,13 @@ Class Incident:
 Relation: Figure association SensorEvent
 Relation: Figure association Alert","class Figure:
     # Regra de negocio: Derivada de DSL de requisitos e design
-    def __init__(self, triggers, alerts, when, readings, are, sensorEvent, alert):
+    def __init__(self, triggers, alerts, when, readings, are, sensorevent, alert):
         self.triggers = triggers
         self.alerts = alerts
         self.when = when
         self.readings = readings
         self.are = are
-        self.sensorEvent = sensorEvent
+        self.sensorevent = sensorevent
         self.alert = alert
     def trigger(self):
         pass
@@ -622,8 +664,8 @@ class Incident:
     # Regra de negocio: Derivada de DSL de requisitos e design
     def __init__(self):
         pass
-",0.13333333333333333,0.2857142857142857,0.18181818181818182,0.25,1.0,1.0,0,0,0,6.0500002291519195e-05,0.0,0,1,heuristic_multilayer_dsl,quality
-out_of_pattern_business_rules,out_of_pattern,heuristic_baseline,E_generalization,A sensor event triggers alerts when readings are outside configured thresholds. Operators acknowledge alerts and may escalate incidents.,sensor;event;triggers;alerts;when;readings;are;outside;configured;thresholds;operators;acknowledge;may;escalate;incidents,"Class Figure:
+",0.13333333333333333,0.2857142857142857,0.18181818181818182,0.25,1.0,1.0,0,1,0.0,0,7.60000039008446e-05,0.0,0,1,heuristic_multilayer_dsl,quality
+out_of_pattern_business_rules,out_of_pattern,heuristic_baseline,local,baseline_or_mock_only,E_generalization,A sensor event triggers alerts when readings are outside configured thresholds. Operators acknowledge alerts and may escalate incidents.,sensor;event;triggers;alerts;when;readings;are;outside;configured;thresholds;operators;acknowledge;may;escalate;incidents,"Class Figure:
 Attributes: triggers, alerts, when, readings, are
 Methods: trigger, acknowledge, escalate
 Class SensorEvent:
@@ -633,13 +675,13 @@ Class Incident:
 Relation: Figure association SensorEvent
 Relation: Figure association Alert",,"class Figure:
     # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self, triggers, alerts, when, readings, are, sensorEvent, alert):
+    def __init__(self, triggers, alerts, when, readings, are, sensorevent, alert):
         self.triggers = triggers
         self.alerts = alerts
         self.when = when
         self.readings = readings
         self.are = are
-        self.sensorEvent = sensorEvent
+        self.sensorevent = sensorevent
         self.alert = alert
     def trigger(self):
         pass
@@ -667,8 +709,8 @@ class Incident:
     # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
     def __init__(self):
         pass
-",0.13333333333333333,0.2857142857142857,0.18181818181818182,0.9166666666666666,1.0,1.0,0,0,0,5.570000212173909e-05,0.0,0,1,heuristic_dsl,quality
-out_of_pattern_business_rules,out_of_pattern,heuristic_baseline,F_model_comparison,A sensor event triggers alerts when readings are outside configured thresholds. Operators acknowledge alerts and may escalate incidents.,sensor;event;triggers;alerts;when;readings;are;outside;configured;thresholds;operators;acknowledge;may;escalate;incidents,"Class Figure:
+",0.13333333333333333,0.2857142857142857,0.18181818181818182,0.9166666666666666,1.0,1.0,0,1,0.0,0,9.539999882690609e-05,0.0,0,1,heuristic_dsl,quality
+out_of_pattern_business_rules,out_of_pattern,heuristic_baseline,local,baseline_or_mock_only,F_model_comparison,A sensor event triggers alerts when readings are outside configured thresholds. Operators acknowledge alerts and may escalate incidents.,sensor;event;triggers;alerts;when;readings;are;outside;configured;thresholds;operators;acknowledge;may;escalate;incidents,"Class Figure:
 Attributes: triggers, alerts, when, readings, are
 Methods: trigger, acknowledge, escalate
 Class SensorEvent:
@@ -678,13 +720,13 @@ Class Incident:
 Relation: Figure association SensorEvent
 Relation: Figure association Alert",,"class Figure:
     # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self, triggers, alerts, when, readings, are, sensorEvent, alert):
+    def __init__(self, triggers, alerts, when, readings, are, sensorevent, alert):
         self.triggers = triggers
         self.alerts = alerts
         self.when = when
         self.readings = readings
         self.are = are
-        self.sensorEvent = sensorEvent
+        self.sensorevent = sensorevent
         self.alert = alert
     def trigger(self):
         pass
@@ -712,8 +754,8 @@ class Incident:
     # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
     def __init__(self):
         pass
-",0.13333333333333333,0.2857142857142857,0.18181818181818182,0.9166666666666666,1.0,1.0,0,0,0,5.4799995268695056e-05,0.0,0,1,heuristic_dsl,quality
-out_of_pattern_business_rules,out_of_pattern,heuristic_baseline,D_business_rule_change,A sensor event triggers alerts when readings are outside configured thresholds. Operators acknowledge alerts and may escalate incidents.,sensor;event;triggers;alerts;when;readings;are;outside;configured;thresholds;operators;acknowledge;may;escalate;incidents,"Class Figure:
+",0.13333333333333333,0.2857142857142857,0.18181818181818182,0.9166666666666666,1.0,1.0,0,1,0.0,0,7.299999560927972e-05,0.0,0,1,heuristic_dsl,quality
+out_of_pattern_business_rules,out_of_pattern,heuristic_baseline,local,baseline_or_mock_only,D_business_rule_change,A sensor event triggers alerts when readings are outside configured thresholds. Operators acknowledge alerts and may escalate incidents.,sensor;event;triggers;alerts;when;readings;are;outside;configured;thresholds;operators;acknowledge;may;escalate;incidents,"Class Figure:
 Attributes: triggers, alerts, when, readings, are
 Methods: trigger, acknowledge, escalate
 Class SensorEvent:
@@ -723,13 +765,13 @@ Class Incident:
 Relation: Figure association SensorEvent
 Relation: Figure association Alert",,"class Figure:
     # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self, triggers, alerts, when, readings, are, sensorEvent, alert):
+    def __init__(self, triggers, alerts, when, readings, are, sensorevent, alert):
         self.triggers = triggers
         self.alerts = alerts
         self.when = when
         self.readings = readings
         self.are = are
-        self.sensorEvent = sensorEvent
+        self.sensorevent = sensorevent
         self.alert = alert
     def trigger(self):
         pass
@@ -758,1530 +800,5 @@ class Incident:
     def __init__(self):
         pass
 
-# Mudanca posterior: Escalation requires supervisor approval
-# Modificacao do usuario: User added Incident as an entity after generation.
-",0.13333333333333333,0.2857142857142857,0.18181818181818182,0.9166666666666666,1.0,1.0,0,0,0,5.2900002629030496e-05,0.0,0,1,heuristic_dsl | business_rule_change_applied,quality
-scenario_2_editorial,medium,bert_paper_reference,A_full_pipeline,"An editorial document has sections, paragraphs, figures and references. An author writes the document and an editor reviews and validates it.",editorial;document;sections;paragraphs;figures;references;author;writes;editor;reviews;validates,"Class Document:
-Attributes: editorial, sections, paragraphs, figures, references
-Methods: write, review, validate
-Class Section:
-Class Paragraph:
-Class Figure:
-Class Reference:
-Relation: Document association Section
-Relation: Document association Paragraph",,"class Document:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self, editorial, sections, paragraphs, figures, references, section, paragraph):
-        self.editorial = editorial
-        self.sections = sections
-        self.paragraphs = paragraphs
-        self.figures = figures
-        self.references = references
-        self.section = section
-        self.paragraph = paragraph
-    def write(self):
-        pass
-    def review(self):
-        pass
-    def validate(self):
-        pass
-
-class Section:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self):
-        pass
-
-class Paragraph:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self):
-        pass
-
-class Figure:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self):
-        pass
-
-class Reference:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self):
-        pass
-",0.2727272727272727,0.3333333333333333,0.3,0.9333333333333333,1.0,0.5,0,0,0,6.399999983841553e-05,0.0,0,1,heuristic_dsl,quality
-scenario_2_editorial,medium,bert_paper_reference,B_no_dsl,"An editorial document has sections, paragraphs, figures and references. An author writes the document and an editor reviews and validates it.",editorial;document;sections;paragraphs;figures;references;author;writes;editor;reviews;validates,,,"class Editorial:
-    # Regra de negocio: Gerado diretamente do CIM sem DSL
-    def __init__(self, document, sections, paragraphs, figures, references):
-        self.document = document
-        self.sections = sections
-        self.paragraphs = paragraphs
-        self.figures = figures
-        self.references = references
-",0.2727272727272727,0.3333333333333333,0.3,0.0,0.0,0.25,0,0,0,1.9999999494757503e-05,0.0,0,2,heuristic_direct_code,quality
-scenario_2_editorial,medium,bert_paper_reference,C_multilayer_dsl,"An editorial document has sections, paragraphs, figures and references. An author writes the document and an editor reviews and validates it.",editorial;document;sections;paragraphs;figures;references;author;writes;editor;reviews;validates,"RequirementEntity: Document
-RequirementEntity: Section
-RequirementEntity: Paragraph
-RequirementEntity: Figure
-RequirementEntity: Reference
-# TODO: extensão experimental; o artigo usa uma DSL intermediaria principal, nao multiplas camadas.","Class Document:
-Attributes: editorial, sections, paragraphs, figures, references
-Methods: write, review, validate
-Class Section:
-Class Paragraph:
-Class Figure:
-Class Reference:
-Relation: Document association Section
-Relation: Document association Paragraph","class Document:
-    # Regra de negocio: Derivada de DSL de requisitos e design
-    def __init__(self, editorial, sections, paragraphs, figures, references, section, paragraph):
-        self.editorial = editorial
-        self.sections = sections
-        self.paragraphs = paragraphs
-        self.figures = figures
-        self.references = references
-        self.section = section
-        self.paragraph = paragraph
-    def write(self):
-        pass
-    def review(self):
-        pass
-    def validate(self):
-        pass
-
-class Section:
-    # Regra de negocio: Derivada de DSL de requisitos e design
-    def __init__(self):
-        pass
-
-class Paragraph:
-    # Regra de negocio: Derivada de DSL de requisitos e design
-    def __init__(self):
-        pass
-
-class Figure:
-    # Regra de negocio: Derivada de DSL de requisitos e design
-    def __init__(self):
-        pass
-
-class Reference:
-    # Regra de negocio: Derivada de DSL de requisitos e design
-    def __init__(self):
-        pass
-",0.2727272727272727,0.3333333333333333,0.3,0.06666666666666667,1.0,0.5,0,0,0,7.339999865507707e-05,0.0,0,1,heuristic_multilayer_dsl,quality
-scenario_2_editorial,medium,bert_paper_reference,E_generalization,"An editorial document has sections, paragraphs, figures and references. An author writes the document and an editor reviews and validates it.",editorial;document;sections;paragraphs;figures;references;author;writes;editor;reviews;validates,"Class Document:
-Attributes: editorial, sections, paragraphs, figures, references
-Methods: write, review, validate
-Class Section:
-Class Paragraph:
-Class Figure:
-Class Reference:
-Relation: Document association Section
-Relation: Document association Paragraph",,"class Document:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self, editorial, sections, paragraphs, figures, references, section, paragraph):
-        self.editorial = editorial
-        self.sections = sections
-        self.paragraphs = paragraphs
-        self.figures = figures
-        self.references = references
-        self.section = section
-        self.paragraph = paragraph
-    def write(self):
-        pass
-    def review(self):
-        pass
-    def validate(self):
-        pass
-
-class Section:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self):
-        pass
-
-class Paragraph:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self):
-        pass
-
-class Figure:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self):
-        pass
-
-class Reference:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self):
-        pass
-",0.2727272727272727,0.3333333333333333,0.3,0.9333333333333333,1.0,0.5,0,0,0,6.410000059986487e-05,0.0,0,1,heuristic_dsl,quality
-scenario_2_editorial,medium,bert_paper_reference,F_model_comparison,"An editorial document has sections, paragraphs, figures and references. An author writes the document and an editor reviews and validates it.",editorial;document;sections;paragraphs;figures;references;author;writes;editor;reviews;validates,"Class Document:
-Attributes: editorial, sections, paragraphs, figures, references
-Methods: write, review, validate
-Class Section:
-Class Paragraph:
-Class Figure:
-Class Reference:
-Relation: Document association Section
-Relation: Document association Paragraph",,"class Document:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self, editorial, sections, paragraphs, figures, references, section, paragraph):
-        self.editorial = editorial
-        self.sections = sections
-        self.paragraphs = paragraphs
-        self.figures = figures
-        self.references = references
-        self.section = section
-        self.paragraph = paragraph
-    def write(self):
-        pass
-    def review(self):
-        pass
-    def validate(self):
-        pass
-
-class Section:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self):
-        pass
-
-class Paragraph:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self):
-        pass
-
-class Figure:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self):
-        pass
-
-class Reference:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self):
-        pass
-",0.2727272727272727,0.3333333333333333,0.3,0.9333333333333333,1.0,0.5,0,0,0,6.800000119255856e-05,0.0,0,1,heuristic_dsl,quality
-scenario_2_editorial,medium,bert_paper_reference,D_business_rule_change,"An editorial document has sections, paragraphs, figures and references. An author writes the document and an editor reviews and validates it.",editorial;document;sections;paragraphs;figures;references;author;writes;editor;reviews;validates,"Class Document:
-Attributes: editorial, sections, paragraphs, figures, references
-Methods: write, review, validate
-Class Section:
-Class Paragraph:
-Class Figure:
-Class Reference:
-Relation: Document association Section
-Relation: Document association Paragraph",,"class Document:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self, editorial, sections, paragraphs, figures, references, section, paragraph):
-        self.editorial = editorial
-        self.sections = sections
-        self.paragraphs = paragraphs
-        self.figures = figures
-        self.references = references
-        self.section = section
-        self.paragraph = paragraph
-    def write(self):
-        pass
-    def review(self):
-        pass
-    def validate(self):
-        pass
-
-class Section:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self):
-        pass
-
-class Paragraph:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self):
-        pass
-
-class Figure:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self):
-        pass
-
-class Reference:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self):
-        pass
-
-# Mudanca posterior: Reviewer approval is required before editor validation
-# Modificacao do usuario: User added Reviewer as a class after initial generation.
-",0.2727272727272727,0.3333333333333333,0.3,0.9333333333333333,1.0,0.5,0,0,0,5.819999933009967e-05,0.0,0,1,heuristic_dsl | business_rule_change_applied,quality
-scenario_3_library,complex,bert_paper_reference,A_full_pipeline,"A municipal library manages books, members and loans. A member borrows books, returns loans and may pay penalties for late returns.",municipal;library;manages;books;members;loans;member;borrows;returns;may;pay;penalties;for;late,"Class Library:
-Attributes: municipal, manages, books, members, loans
-Methods: manage, borrow, return, pay
-Class Book:
-Class Member:
-Class Loan:
-Relation: Library association Book
-Relation: Library association Member",,"class Library:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self, municipal, manages, books, members, loans, book, member):
-        self.municipal = municipal
-        self.manages = manages
-        self.books = books
-        self.members = members
-        self.loans = loans
-        self.book = book
-        self.member = member
-    def manage(self):
-        pass
-    def borrow(self):
-        pass
-    def return(self):
-        pass
-    def pay(self):
-        pass
-
-class Book:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self):
-        pass
-
-class Member:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self):
-        pass
-
-class Loan:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self):
-        pass
-",0.14285714285714285,0.2857142857142857,0.19047619047619047,0.8333333333333334,1.0,1.0,1,0,0,6.579999899258837e-05,0.0,0,2,heuristic_dsl,syntax
-scenario_3_library,complex,bert_paper_reference,B_no_dsl,"A municipal library manages books, members and loans. A member borrows books, returns loans and may pay penalties for late returns.",municipal;library;manages;books;members;loans;member;borrows;returns;may;pay;penalties;for;late,,,"class Municipal:
-    # Regra de negocio: Gerado diretamente do CIM sem DSL
-    def __init__(self, library, manages, books, members, loans):
-        self.library = library
-        self.manages = manages
-        self.books = books
-        self.members = members
-        self.loans = loans
-",0.14285714285714285,0.2857142857142857,0.19047619047619047,0.0,0.0,0.0,0,0,0,1.6500001947861165e-05,0.0,0,2,heuristic_direct_code,quality
-scenario_3_library,complex,bert_paper_reference,C_multilayer_dsl,"A municipal library manages books, members and loans. A member borrows books, returns loans and may pay penalties for late returns.",municipal;library;manages;books;members;loans;member;borrows;returns;may;pay;penalties;for;late,"RequirementEntity: Library
-RequirementEntity: Book
-RequirementEntity: Member
-RequirementEntity: Loan
-# TODO: extensão experimental; o artigo usa uma DSL intermediaria principal, nao multiplas camadas.","Class Library:
-Attributes: municipal, manages, books, members, loans
-Methods: manage, borrow, return, pay
-Class Book:
-Class Member:
-Class Loan:
-Relation: Library association Book
-Relation: Library association Member","class Library:
-    # Regra de negocio: Derivada de DSL de requisitos e design
-    def __init__(self, municipal, manages, books, members, loans, book, member):
-        self.municipal = municipal
-        self.manages = manages
-        self.books = books
-        self.members = members
-        self.loans = loans
-        self.book = book
-        self.member = member
-    def manage(self):
-        pass
-    def borrow(self):
-        pass
-    def return(self):
-        pass
-    def pay(self):
-        pass
-
-class Book:
-    # Regra de negocio: Derivada de DSL de requisitos e design
-    def __init__(self):
-        pass
-
-class Member:
-    # Regra de negocio: Derivada de DSL de requisitos e design
-    def __init__(self):
-        pass
-
-class Loan:
-    # Regra de negocio: Derivada de DSL de requisitos e design
-    def __init__(self):
-        pass
-",0.14285714285714285,0.2857142857142857,0.19047619047619047,0.3333333333333333,1.0,1.0,1,0,0,5.869999586138874e-05,0.0,0,2,heuristic_multilayer_dsl,syntax
-scenario_3_library,complex,bert_paper_reference,E_generalization,"A municipal library manages books, members and loans. A member borrows books, returns loans and may pay penalties for late returns.",municipal;library;manages;books;members;loans;member;borrows;returns;may;pay;penalties;for;late,"Class Library:
-Attributes: municipal, manages, books, members, loans
-Methods: manage, borrow, return, pay
-Class Book:
-Class Member:
-Class Loan:
-Relation: Library association Book
-Relation: Library association Member",,"class Library:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self, municipal, manages, books, members, loans, book, member):
-        self.municipal = municipal
-        self.manages = manages
-        self.books = books
-        self.members = members
-        self.loans = loans
-        self.book = book
-        self.member = member
-    def manage(self):
-        pass
-    def borrow(self):
-        pass
-    def return(self):
-        pass
-    def pay(self):
-        pass
-
-class Book:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self):
-        pass
-
-class Member:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self):
-        pass
-
-class Loan:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self):
-        pass
-",0.14285714285714285,0.2857142857142857,0.19047619047619047,0.8333333333333334,1.0,1.0,1,0,0,6.0500002291519195e-05,0.0,0,2,heuristic_dsl,syntax
-scenario_3_library,complex,bert_paper_reference,F_model_comparison,"A municipal library manages books, members and loans. A member borrows books, returns loans and may pay penalties for late returns.",municipal;library;manages;books;members;loans;member;borrows;returns;may;pay;penalties;for;late,"Class Library:
-Attributes: municipal, manages, books, members, loans
-Methods: manage, borrow, return, pay
-Class Book:
-Class Member:
-Class Loan:
-Relation: Library association Book
-Relation: Library association Member",,"class Library:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self, municipal, manages, books, members, loans, book, member):
-        self.municipal = municipal
-        self.manages = manages
-        self.books = books
-        self.members = members
-        self.loans = loans
-        self.book = book
-        self.member = member
-    def manage(self):
-        pass
-    def borrow(self):
-        pass
-    def return(self):
-        pass
-    def pay(self):
-        pass
-
-class Book:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self):
-        pass
-
-class Member:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self):
-        pass
-
-class Loan:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self):
-        pass
-",0.14285714285714285,0.2857142857142857,0.19047619047619047,0.8333333333333334,1.0,1.0,1,0,0,5.679999594576657e-05,0.0,0,2,heuristic_dsl,syntax
-scenario_3_library,complex,bert_paper_reference,D_business_rule_change,"A municipal library manages books, members and loans. A member borrows books, returns loans and may pay penalties for late returns.",municipal;library;manages;books;members;loans;member;borrows;returns;may;pay;penalties;for;late,"Class Library:
-Attributes: municipal, manages, books, members, loans
-Methods: manage, borrow, return, pay
-Class Book:
-Class Member:
-Class Loan:
-Relation: Library association Book
-Relation: Library association Member",,"class Library:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self, municipal, manages, books, members, loans, book, member):
-        self.municipal = municipal
-        self.manages = manages
-        self.books = books
-        self.members = members
-        self.loans = loans
-        self.book = book
-        self.member = member
-    def manage(self):
-        pass
-    def borrow(self):
-        pass
-    def return(self):
-        pass
-    def pay(self):
-        pass
-
-class Book:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self):
-        pass
-
-class Member:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self):
-        pass
-
-class Loan:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self):
-        pass
-
-# Mudanca posterior: Late loans create a penalty and block new borrowing until payment
-# Modificacao do usuario: User added Penalty to the generated DSL and code skeleton.
-",0.14285714285714285,0.2857142857142857,0.19047619047619047,0.8333333333333334,1.0,1.0,1,0,0,5.699999746866524e-05,0.0,0,2,heuristic_dsl | business_rule_change_applied,syntax
-incomplete_coreference,incomplete,bert_paper_reference,A_full_pipeline,The class Car has several attributes. It also includes the getSpeed method.,class;car;attributes;getspeed;method,"Class Car:
-Attributes: class, attributes, getspeed, method",,"class Car:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self, class, attributes, getspeed, method):
-        self.class = class
-        self.attributes = attributes
-        self.getspeed = getspeed
-        self.method = method
-",0.6,1.0,0.7499999999999999,0.75,1.0,0.5,1,0,0,2.6100002287421376e-05,0.0,0,1,heuristic_dsl,syntax
-incomplete_coreference,incomplete,bert_paper_reference,B_no_dsl,The class Car has several attributes. It also includes the getSpeed method.,class;car;attributes;getspeed;method,,,"class Class:
-    # Regra de negocio: Gerado diretamente do CIM sem DSL
-    def __init__(self, car, attributes, getspeed, method):
-        self.car = car
-        self.attributes = attributes
-        self.getspeed = getspeed
-        self.method = method
-",0.6,1.0,0.7499999999999999,0.0,0.0,0.0,0,0,0,9.499999578110874e-06,0.0,0,1,heuristic_direct_code,quality
-incomplete_coreference,incomplete,bert_paper_reference,C_multilayer_dsl,The class Car has several attributes. It also includes the getSpeed method.,class;car;attributes;getspeed;method,"RequirementEntity: Car
-# TODO: extensão experimental; o artigo usa uma DSL intermediaria principal, nao multiplas camadas.","Class Car:
-Attributes: class, attributes, getspeed, method","class Car:
-    # Regra de negocio: Derivada de DSL de requisitos e design
-    def __init__(self, class, attributes, getspeed, method):
-        self.class = class
-        self.attributes = attributes
-        self.getspeed = getspeed
-        self.method = method
-",0.6,1.0,0.7499999999999999,0.25,1.0,0.5,1,0,0,2.08000055863522e-05,0.0,0,1,heuristic_multilayer_dsl,syntax
-incomplete_coreference,incomplete,bert_paper_reference,E_generalization,The class Car has several attributes. It also includes the getSpeed method.,class;car;attributes;getspeed;method,"Class Car:
-Attributes: class, attributes, getspeed, method",,"class Car:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self, class, attributes, getspeed, method):
-        self.class = class
-        self.attributes = attributes
-        self.getspeed = getspeed
-        self.method = method
-",0.6,1.0,0.7499999999999999,0.75,1.0,0.5,1,0,0,1.7099999240599573e-05,0.0,0,1,heuristic_dsl,syntax
-incomplete_coreference,incomplete,bert_paper_reference,F_model_comparison,The class Car has several attributes. It also includes the getSpeed method.,class;car;attributes;getspeed;method,"Class Car:
-Attributes: class, attributes, getspeed, method",,"class Car:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self, class, attributes, getspeed, method):
-        self.class = class
-        self.attributes = attributes
-        self.getspeed = getspeed
-        self.method = method
-",0.6,1.0,0.7499999999999999,0.75,1.0,0.5,1,0,0,1.460000203223899e-05,0.0,0,1,heuristic_dsl,syntax
-incomplete_coreference,incomplete,bert_paper_reference,D_business_rule_change,The class Car has several attributes. It also includes the getSpeed method.,class;car;attributes;getspeed;method,"Class Car:
-Attributes: class, attributes, getspeed, method",,"class Car:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self, class, attributes, getspeed, method):
-        self.class = class
-        self.attributes = attributes
-        self.getspeed = getspeed
-        self.method = method
-
-# Mudanca posterior: Car speed must be non-negative
-# Modificacao do usuario: User added speed but did not specify unit.
-",0.6,1.0,0.7499999999999999,0.75,1.0,0.5,1,0,0,1.5200006600935012e-05,0.0,0,1,heuristic_dsl | business_rule_change_applied,syntax
-out_of_pattern_business_rules,out_of_pattern,bert_paper_reference,A_full_pipeline,A sensor event triggers alerts when readings are outside configured thresholds. Operators acknowledge alerts and may escalate incidents.,sensor;event;triggers;alerts;when;readings;are;outside;configured;thresholds;operators;acknowledge;may;escalate;incidents,"Class Figure:
-Attributes: triggers, alerts, when, readings, are
-Methods: trigger, acknowledge, escalate
-Class SensorEvent:
-Class Alert:
-Class Operator:
-Class Incident:
-Relation: Figure association SensorEvent
-Relation: Figure association Alert",,"class Figure:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self, triggers, alerts, when, readings, are, sensorEvent, alert):
-        self.triggers = triggers
-        self.alerts = alerts
-        self.when = when
-        self.readings = readings
-        self.are = are
-        self.sensorEvent = sensorEvent
-        self.alert = alert
-    def trigger(self):
-        pass
-    def acknowledge(self):
-        pass
-    def escalate(self):
-        pass
-
-class SensorEvent:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self):
-        pass
-
-class Alert:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self):
-        pass
-
-class Operator:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self):
-        pass
-
-class Incident:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self):
-        pass
-",0.13333333333333333,0.2857142857142857,0.18181818181818182,0.9166666666666666,1.0,1.0,0,0,0,6.480000593001023e-05,0.0,0,1,heuristic_dsl,quality
-out_of_pattern_business_rules,out_of_pattern,bert_paper_reference,B_no_dsl,A sensor event triggers alerts when readings are outside configured thresholds. Operators acknowledge alerts and may escalate incidents.,sensor;event;triggers;alerts;when;readings;are;outside;configured;thresholds;operators;acknowledge;may;escalate;incidents,,,"class Sensor:
-    # Regra de negocio: Gerado diretamente do CIM sem DSL
-    def __init__(self, event, triggers, alerts, when, readings):
-        self.event = event
-        self.triggers = triggers
-        self.alerts = alerts
-        self.when = when
-        self.readings = readings
-",0.13333333333333333,0.2857142857142857,0.18181818181818182,0.0,0.0,0.0,0,0,0,1.2299999070819467e-05,0.0,0,2,heuristic_direct_code,quality
-out_of_pattern_business_rules,out_of_pattern,bert_paper_reference,C_multilayer_dsl,A sensor event triggers alerts when readings are outside configured thresholds. Operators acknowledge alerts and may escalate incidents.,sensor;event;triggers;alerts;when;readings;are;outside;configured;thresholds;operators;acknowledge;may;escalate;incidents,"RequirementEntity: Figure
-RequirementEntity: SensorEvent
-RequirementEntity: Alert
-RequirementEntity: Operator
-RequirementEntity: Incident
-# TODO: extensão experimental; o artigo usa uma DSL intermediaria principal, nao multiplas camadas.","Class Figure:
-Attributes: triggers, alerts, when, readings, are
-Methods: trigger, acknowledge, escalate
-Class SensorEvent:
-Class Alert:
-Class Operator:
-Class Incident:
-Relation: Figure association SensorEvent
-Relation: Figure association Alert","class Figure:
-    # Regra de negocio: Derivada de DSL de requisitos e design
-    def __init__(self, triggers, alerts, when, readings, are, sensorEvent, alert):
-        self.triggers = triggers
-        self.alerts = alerts
-        self.when = when
-        self.readings = readings
-        self.are = are
-        self.sensorEvent = sensorEvent
-        self.alert = alert
-    def trigger(self):
-        pass
-    def acknowledge(self):
-        pass
-    def escalate(self):
-        pass
-
-class SensorEvent:
-    # Regra de negocio: Derivada de DSL de requisitos e design
-    def __init__(self):
-        pass
-
-class Alert:
-    # Regra de negocio: Derivada de DSL de requisitos e design
-    def __init__(self):
-        pass
-
-class Operator:
-    # Regra de negocio: Derivada de DSL de requisitos e design
-    def __init__(self):
-        pass
-
-class Incident:
-    # Regra de negocio: Derivada de DSL de requisitos e design
-    def __init__(self):
-        pass
-",0.13333333333333333,0.2857142857142857,0.18181818181818182,0.25,1.0,1.0,0,0,0,5.8999998145736754e-05,0.0,0,1,heuristic_multilayer_dsl,quality
-out_of_pattern_business_rules,out_of_pattern,bert_paper_reference,E_generalization,A sensor event triggers alerts when readings are outside configured thresholds. Operators acknowledge alerts and may escalate incidents.,sensor;event;triggers;alerts;when;readings;are;outside;configured;thresholds;operators;acknowledge;may;escalate;incidents,"Class Figure:
-Attributes: triggers, alerts, when, readings, are
-Methods: trigger, acknowledge, escalate
-Class SensorEvent:
-Class Alert:
-Class Operator:
-Class Incident:
-Relation: Figure association SensorEvent
-Relation: Figure association Alert",,"class Figure:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self, triggers, alerts, when, readings, are, sensorEvent, alert):
-        self.triggers = triggers
-        self.alerts = alerts
-        self.when = when
-        self.readings = readings
-        self.are = are
-        self.sensorEvent = sensorEvent
-        self.alert = alert
-    def trigger(self):
-        pass
-    def acknowledge(self):
-        pass
-    def escalate(self):
-        pass
-
-class SensorEvent:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self):
-        pass
-
-class Alert:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self):
-        pass
-
-class Operator:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self):
-        pass
-
-class Incident:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self):
-        pass
-",0.13333333333333333,0.2857142857142857,0.18181818181818182,0.9166666666666666,1.0,1.0,0,0,0,5.740000051446259e-05,0.0,0,1,heuristic_dsl,quality
-out_of_pattern_business_rules,out_of_pattern,bert_paper_reference,F_model_comparison,A sensor event triggers alerts when readings are outside configured thresholds. Operators acknowledge alerts and may escalate incidents.,sensor;event;triggers;alerts;when;readings;are;outside;configured;thresholds;operators;acknowledge;may;escalate;incidents,"Class Figure:
-Attributes: triggers, alerts, when, readings, are
-Methods: trigger, acknowledge, escalate
-Class SensorEvent:
-Class Alert:
-Class Operator:
-Class Incident:
-Relation: Figure association SensorEvent
-Relation: Figure association Alert",,"class Figure:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self, triggers, alerts, when, readings, are, sensorEvent, alert):
-        self.triggers = triggers
-        self.alerts = alerts
-        self.when = when
-        self.readings = readings
-        self.are = are
-        self.sensorEvent = sensorEvent
-        self.alert = alert
-    def trigger(self):
-        pass
-    def acknowledge(self):
-        pass
-    def escalate(self):
-        pass
-
-class SensorEvent:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self):
-        pass
-
-class Alert:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self):
-        pass
-
-class Operator:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self):
-        pass
-
-class Incident:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self):
-        pass
-",0.13333333333333333,0.2857142857142857,0.18181818181818182,0.9166666666666666,1.0,1.0,0,0,0,5.2600000344682485e-05,0.0,0,1,heuristic_dsl,quality
-out_of_pattern_business_rules,out_of_pattern,bert_paper_reference,D_business_rule_change,A sensor event triggers alerts when readings are outside configured thresholds. Operators acknowledge alerts and may escalate incidents.,sensor;event;triggers;alerts;when;readings;are;outside;configured;thresholds;operators;acknowledge;may;escalate;incidents,"Class Figure:
-Attributes: triggers, alerts, when, readings, are
-Methods: trigger, acknowledge, escalate
-Class SensorEvent:
-Class Alert:
-Class Operator:
-Class Incident:
-Relation: Figure association SensorEvent
-Relation: Figure association Alert",,"class Figure:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self, triggers, alerts, when, readings, are, sensorEvent, alert):
-        self.triggers = triggers
-        self.alerts = alerts
-        self.when = when
-        self.readings = readings
-        self.are = are
-        self.sensorEvent = sensorEvent
-        self.alert = alert
-    def trigger(self):
-        pass
-    def acknowledge(self):
-        pass
-    def escalate(self):
-        pass
-
-class SensorEvent:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self):
-        pass
-
-class Alert:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self):
-        pass
-
-class Operator:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self):
-        pass
-
-class Incident:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self):
-        pass
-
-# Mudanca posterior: Escalation requires supervisor approval
-# Modificacao do usuario: User added Incident as an entity after generation.
-",0.13333333333333333,0.2857142857142857,0.18181818181818182,0.9166666666666666,1.0,1.0,0,0,0,6.150000263005495e-05,0.0,0,1,heuristic_dsl | business_rule_change_applied,quality
-scenario_2_editorial,medium,mock_llm,A_full_pipeline,"An editorial document has sections, paragraphs, figures and references. An author writes the document and an editor reviews and validates it.",editorial;document;sections;paragraphs;figures;references;author;writes;editor;reviews;validates,"Class Document:
-Attributes: editorial, sections, paragraphs, figures, references
-Methods: write, review, validate
-Class Section:
-Class Paragraph:
-Class Figure:
-Class Reference:
-Relation: Document association Section
-Relation: Document association Paragraph",,"class Document:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self, editorial, sections, paragraphs, figures, references, section, paragraph):
-        self.editorial = editorial
-        self.sections = sections
-        self.paragraphs = paragraphs
-        self.figures = figures
-        self.references = references
-        self.section = section
-        self.paragraph = paragraph
-    def write(self):
-        pass
-    def review(self):
-        pass
-    def validate(self):
-        pass
-
-class Section:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self):
-        pass
-
-class Paragraph:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self):
-        pass
-
-class Figure:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self):
-        pass
-
-class Reference:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self):
-        pass
-",0.2727272727272727,0.3333333333333333,0.3,0.9333333333333333,1.0,0.5,0,0,0,7.440000626957044e-05,0.0,0,1,heuristic_dsl,quality
-scenario_2_editorial,medium,mock_llm,B_no_dsl,"An editorial document has sections, paragraphs, figures and references. An author writes the document and an editor reviews and validates it.",editorial;document;sections;paragraphs;figures;references;author;writes;editor;reviews;validates,,,"class Editorial:
-    # Regra de negocio: Gerado diretamente do CIM sem DSL
-    def __init__(self, document, sections, paragraphs, figures, references):
-        self.document = document
-        self.sections = sections
-        self.paragraphs = paragraphs
-        self.figures = figures
-        self.references = references
-",0.2727272727272727,0.3333333333333333,0.3,0.0,0.0,0.25,0,0,0,1.6099998902063817e-05,0.0,0,2,heuristic_direct_code,quality
-scenario_2_editorial,medium,mock_llm,C_multilayer_dsl,"An editorial document has sections, paragraphs, figures and references. An author writes the document and an editor reviews and validates it.",editorial;document;sections;paragraphs;figures;references;author;writes;editor;reviews;validates,"RequirementEntity: Document
-RequirementEntity: Section
-RequirementEntity: Paragraph
-RequirementEntity: Figure
-RequirementEntity: Reference
-# TODO: extensão experimental; o artigo usa uma DSL intermediaria principal, nao multiplas camadas.","Class Document:
-Attributes: editorial, sections, paragraphs, figures, references
-Methods: write, review, validate
-Class Section:
-Class Paragraph:
-Class Figure:
-Class Reference:
-Relation: Document association Section
-Relation: Document association Paragraph","class Document:
-    # Regra de negocio: Derivada de DSL de requisitos e design
-    def __init__(self, editorial, sections, paragraphs, figures, references, section, paragraph):
-        self.editorial = editorial
-        self.sections = sections
-        self.paragraphs = paragraphs
-        self.figures = figures
-        self.references = references
-        self.section = section
-        self.paragraph = paragraph
-    def write(self):
-        pass
-    def review(self):
-        pass
-    def validate(self):
-        pass
-
-class Section:
-    # Regra de negocio: Derivada de DSL de requisitos e design
-    def __init__(self):
-        pass
-
-class Paragraph:
-    # Regra de negocio: Derivada de DSL de requisitos e design
-    def __init__(self):
-        pass
-
-class Figure:
-    # Regra de negocio: Derivada de DSL de requisitos e design
-    def __init__(self):
-        pass
-
-class Reference:
-    # Regra de negocio: Derivada de DSL de requisitos e design
-    def __init__(self):
-        pass
-",0.2727272727272727,0.3333333333333333,0.3,0.06666666666666667,1.0,0.5,0,0,0,5.900000542169437e-05,0.0,0,1,heuristic_multilayer_dsl,quality
-scenario_2_editorial,medium,mock_llm,E_generalization,"An editorial document has sections, paragraphs, figures and references. An author writes the document and an editor reviews and validates it.",editorial;document;sections;paragraphs;figures;references;author;writes;editor;reviews;validates,"Class Document:
-Attributes: editorial, sections, paragraphs, figures, references
-Methods: write, review, validate
-Class Section:
-Class Paragraph:
-Class Figure:
-Class Reference:
-Relation: Document association Section
-Relation: Document association Paragraph",,"class Document:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self, editorial, sections, paragraphs, figures, references, section, paragraph):
-        self.editorial = editorial
-        self.sections = sections
-        self.paragraphs = paragraphs
-        self.figures = figures
-        self.references = references
-        self.section = section
-        self.paragraph = paragraph
-    def write(self):
-        pass
-    def review(self):
-        pass
-    def validate(self):
-        pass
-
-class Section:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self):
-        pass
-
-class Paragraph:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self):
-        pass
-
-class Figure:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self):
-        pass
-
-class Reference:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self):
-        pass
-",0.2727272727272727,0.3333333333333333,0.3,0.9333333333333333,1.0,0.5,0,0,0,5.370000144466758e-05,0.0,0,1,heuristic_dsl,quality
-scenario_2_editorial,medium,mock_llm,F_model_comparison,"An editorial document has sections, paragraphs, figures and references. An author writes the document and an editor reviews and validates it.",editorial;document;sections;paragraphs;figures;references;author;writes;editor;reviews;validates,"Class Document:
-Attributes: editorial, sections, paragraphs, figures, references
-Methods: write, review, validate
-Class Section:
-Class Paragraph:
-Class Figure:
-Class Reference:
-Relation: Document association Section
-Relation: Document association Paragraph",,"class Document:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self, editorial, sections, paragraphs, figures, references, section, paragraph):
-        self.editorial = editorial
-        self.sections = sections
-        self.paragraphs = paragraphs
-        self.figures = figures
-        self.references = references
-        self.section = section
-        self.paragraph = paragraph
-    def write(self):
-        pass
-    def review(self):
-        pass
-    def validate(self):
-        pass
-
-class Section:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self):
-        pass
-
-class Paragraph:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self):
-        pass
-
-class Figure:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self):
-        pass
-
-class Reference:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self):
-        pass
-",0.2727272727272727,0.3333333333333333,0.3,0.9333333333333333,1.0,0.5,0,0,0,5.300000339047983e-05,0.0,0,1,heuristic_dsl,quality
-scenario_2_editorial,medium,mock_llm,D_business_rule_change,"An editorial document has sections, paragraphs, figures and references. An author writes the document and an editor reviews and validates it.",editorial;document;sections;paragraphs;figures;references;author;writes;editor;reviews;validates,"Class Document:
-Attributes: editorial, sections, paragraphs, figures, references
-Methods: write, review, validate
-Class Section:
-Class Paragraph:
-Class Figure:
-Class Reference:
-Relation: Document association Section
-Relation: Document association Paragraph",,"class Document:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self, editorial, sections, paragraphs, figures, references, section, paragraph):
-        self.editorial = editorial
-        self.sections = sections
-        self.paragraphs = paragraphs
-        self.figures = figures
-        self.references = references
-        self.section = section
-        self.paragraph = paragraph
-    def write(self):
-        pass
-    def review(self):
-        pass
-    def validate(self):
-        pass
-
-class Section:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self):
-        pass
-
-class Paragraph:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self):
-        pass
-
-class Figure:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self):
-        pass
-
-class Reference:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self):
-        pass
-
-# Mudanca posterior: Reviewer approval is required before editor validation
-# Modificacao do usuario: User added Reviewer as a class after initial generation.
-",0.2727272727272727,0.3333333333333333,0.3,0.9333333333333333,1.0,0.5,0,0,0,5.119999696034938e-05,0.0,0,1,heuristic_dsl | business_rule_change_applied,quality
-scenario_3_library,complex,mock_llm,A_full_pipeline,"A municipal library manages books, members and loans. A member borrows books, returns loans and may pay penalties for late returns.",municipal;library;manages;books;members;loans;member;borrows;returns;may;pay;penalties;for;late,"Class Library:
-Attributes: municipal, manages, books, members, loans
-Methods: manage, borrow, return, pay
-Class Book:
-Class Member:
-Class Loan:
-Relation: Library association Book
-Relation: Library association Member",,"class Library:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self, municipal, manages, books, members, loans, book, member):
-        self.municipal = municipal
-        self.manages = manages
-        self.books = books
-        self.members = members
-        self.loans = loans
-        self.book = book
-        self.member = member
-    def manage(self):
-        pass
-    def borrow(self):
-        pass
-    def return(self):
-        pass
-    def pay(self):
-        pass
-
-class Book:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self):
-        pass
-
-class Member:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self):
-        pass
-
-class Loan:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self):
-        pass
-",0.14285714285714285,0.2857142857142857,0.19047619047619047,0.8333333333333334,1.0,1.0,1,0,0,5.5999997130129486e-05,0.0,0,2,heuristic_dsl,syntax
-scenario_3_library,complex,mock_llm,B_no_dsl,"A municipal library manages books, members and loans. A member borrows books, returns loans and may pay penalties for late returns.",municipal;library;manages;books;members;loans;member;borrows;returns;may;pay;penalties;for;late,,,"class Municipal:
-    # Regra de negocio: Gerado diretamente do CIM sem DSL
-    def __init__(self, library, manages, books, members, loans):
-        self.library = library
-        self.manages = manages
-        self.books = books
-        self.members = members
-        self.loans = loans
-",0.14285714285714285,0.2857142857142857,0.19047619047619047,0.0,0.0,0.0,0,0,0,1.3600001693703234e-05,0.0,0,2,heuristic_direct_code,quality
-scenario_3_library,complex,mock_llm,C_multilayer_dsl,"A municipal library manages books, members and loans. A member borrows books, returns loans and may pay penalties for late returns.",municipal;library;manages;books;members;loans;member;borrows;returns;may;pay;penalties;for;late,"RequirementEntity: Library
-RequirementEntity: Book
-RequirementEntity: Member
-RequirementEntity: Loan
-# TODO: extensão experimental; o artigo usa uma DSL intermediaria principal, nao multiplas camadas.","Class Library:
-Attributes: municipal, manages, books, members, loans
-Methods: manage, borrow, return, pay
-Class Book:
-Class Member:
-Class Loan:
-Relation: Library association Book
-Relation: Library association Member","class Library:
-    # Regra de negocio: Derivada de DSL de requisitos e design
-    def __init__(self, municipal, manages, books, members, loans, book, member):
-        self.municipal = municipal
-        self.manages = manages
-        self.books = books
-        self.members = members
-        self.loans = loans
-        self.book = book
-        self.member = member
-    def manage(self):
-        pass
-    def borrow(self):
-        pass
-    def return(self):
-        pass
-    def pay(self):
-        pass
-
-class Book:
-    # Regra de negocio: Derivada de DSL de requisitos e design
-    def __init__(self):
-        pass
-
-class Member:
-    # Regra de negocio: Derivada de DSL de requisitos e design
-    def __init__(self):
-        pass
-
-class Loan:
-    # Regra de negocio: Derivada de DSL de requisitos e design
-    def __init__(self):
-        pass
-",0.14285714285714285,0.2857142857142857,0.19047619047619047,0.3333333333333333,1.0,1.0,1,0,0,6.0699996538460255e-05,0.0,0,2,heuristic_multilayer_dsl,syntax
-scenario_3_library,complex,mock_llm,E_generalization,"A municipal library manages books, members and loans. A member borrows books, returns loans and may pay penalties for late returns.",municipal;library;manages;books;members;loans;member;borrows;returns;may;pay;penalties;for;late,"Class Library:
-Attributes: municipal, manages, books, members, loans
-Methods: manage, borrow, return, pay
-Class Book:
-Class Member:
-Class Loan:
-Relation: Library association Book
-Relation: Library association Member",,"class Library:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self, municipal, manages, books, members, loans, book, member):
-        self.municipal = municipal
-        self.manages = manages
-        self.books = books
-        self.members = members
-        self.loans = loans
-        self.book = book
-        self.member = member
-    def manage(self):
-        pass
-    def borrow(self):
-        pass
-    def return(self):
-        pass
-    def pay(self):
-        pass
-
-class Book:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self):
-        pass
-
-class Member:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self):
-        pass
-
-class Loan:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self):
-        pass
-",0.14285714285714285,0.2857142857142857,0.19047619047619047,0.8333333333333334,1.0,1.0,1,0,0,5.5199998314492404e-05,0.0,0,2,heuristic_dsl,syntax
-scenario_3_library,complex,mock_llm,F_model_comparison,"A municipal library manages books, members and loans. A member borrows books, returns loans and may pay penalties for late returns.",municipal;library;manages;books;members;loans;member;borrows;returns;may;pay;penalties;for;late,"Class Library:
-Attributes: municipal, manages, books, members, loans
-Methods: manage, borrow, return, pay
-Class Book:
-Class Member:
-Class Loan:
-Relation: Library association Book
-Relation: Library association Member",,"class Library:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self, municipal, manages, books, members, loans, book, member):
-        self.municipal = municipal
-        self.manages = manages
-        self.books = books
-        self.members = members
-        self.loans = loans
-        self.book = book
-        self.member = member
-    def manage(self):
-        pass
-    def borrow(self):
-        pass
-    def return(self):
-        pass
-    def pay(self):
-        pass
-
-class Book:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self):
-        pass
-
-class Member:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self):
-        pass
-
-class Loan:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self):
-        pass
-",0.14285714285714285,0.2857142857142857,0.19047619047619047,0.8333333333333334,1.0,1.0,1,0,0,5.129999772179872e-05,0.0,0,2,heuristic_dsl,syntax
-scenario_3_library,complex,mock_llm,D_business_rule_change,"A municipal library manages books, members and loans. A member borrows books, returns loans and may pay penalties for late returns.",municipal;library;manages;books;members;loans;member;borrows;returns;may;pay;penalties;for;late,"Class Library:
-Attributes: municipal, manages, books, members, loans
-Methods: manage, borrow, return, pay
-Class Book:
-Class Member:
-Class Loan:
-Relation: Library association Book
-Relation: Library association Member",,"class Library:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self, municipal, manages, books, members, loans, book, member):
-        self.municipal = municipal
-        self.manages = manages
-        self.books = books
-        self.members = members
-        self.loans = loans
-        self.book = book
-        self.member = member
-    def manage(self):
-        pass
-    def borrow(self):
-        pass
-    def return(self):
-        pass
-    def pay(self):
-        pass
-
-class Book:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self):
-        pass
-
-class Member:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self):
-        pass
-
-class Loan:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self):
-        pass
-
-# Mudanca posterior: Late loans create a penalty and block new borrowing until payment
-# Modificacao do usuario: User added Penalty to the generated DSL and code skeleton.
-",0.14285714285714285,0.2857142857142857,0.19047619047619047,0.8333333333333334,1.0,1.0,1,0,0,5.110000347485766e-05,0.0,0,2,heuristic_dsl | business_rule_change_applied,syntax
-incomplete_coreference,incomplete,mock_llm,A_full_pipeline,The class Car has several attributes. It also includes the getSpeed method.,class;car;attributes;getspeed;method,"Class Car:
-Attributes: class, attributes, getspeed, method",,"class Car:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self, class, attributes, getspeed, method):
-        self.class = class
-        self.attributes = attributes
-        self.getspeed = getspeed
-        self.method = method
-",0.6,1.0,0.7499999999999999,0.75,1.0,0.5,1,0,0,2.3799999326001853e-05,0.0,0,1,heuristic_dsl,syntax
-incomplete_coreference,incomplete,mock_llm,B_no_dsl,The class Car has several attributes. It also includes the getSpeed method.,class;car;attributes;getspeed;method,,,"class Class:
-    # Regra de negocio: Gerado diretamente do CIM sem DSL
-    def __init__(self, car, attributes, getspeed, method):
-        self.car = car
-        self.attributes = attributes
-        self.getspeed = getspeed
-        self.method = method
-",0.6,1.0,0.7499999999999999,0.0,0.0,0.0,0,0,0,9.900002623908222e-06,0.0,0,1,heuristic_direct_code,quality
-incomplete_coreference,incomplete,mock_llm,C_multilayer_dsl,The class Car has several attributes. It also includes the getSpeed method.,class;car;attributes;getspeed;method,"RequirementEntity: Car
-# TODO: extensão experimental; o artigo usa uma DSL intermediaria principal, nao multiplas camadas.","Class Car:
-Attributes: class, attributes, getspeed, method","class Car:
-    # Regra de negocio: Derivada de DSL de requisitos e design
-    def __init__(self, class, attributes, getspeed, method):
-        self.class = class
-        self.attributes = attributes
-        self.getspeed = getspeed
-        self.method = method
-",0.6,1.0,0.7499999999999999,0.25,1.0,0.5,1,0,0,2.1200001356191933e-05,0.0,0,1,heuristic_multilayer_dsl,syntax
-incomplete_coreference,incomplete,mock_llm,E_generalization,The class Car has several attributes. It also includes the getSpeed method.,class;car;attributes;getspeed;method,"Class Car:
-Attributes: class, attributes, getspeed, method",,"class Car:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self, class, attributes, getspeed, method):
-        self.class = class
-        self.attributes = attributes
-        self.getspeed = getspeed
-        self.method = method
-",0.6,1.0,0.7499999999999999,0.75,1.0,0.5,1,0,0,7.059999916236848e-05,0.0,0,1,heuristic_dsl,syntax
-incomplete_coreference,incomplete,mock_llm,F_model_comparison,The class Car has several attributes. It also includes the getSpeed method.,class;car;attributes;getspeed;method,"Class Car:
-Attributes: class, attributes, getspeed, method",,"class Car:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self, class, attributes, getspeed, method):
-        self.class = class
-        self.attributes = attributes
-        self.getspeed = getspeed
-        self.method = method
-",0.6,1.0,0.7499999999999999,0.75,1.0,0.5,1,0,0,5.560000136028975e-05,0.0,0,1,heuristic_dsl,syntax
-incomplete_coreference,incomplete,mock_llm,D_business_rule_change,The class Car has several attributes. It also includes the getSpeed method.,class;car;attributes;getspeed;method,"Class Car:
-Attributes: class, attributes, getspeed, method",,"class Car:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self, class, attributes, getspeed, method):
-        self.class = class
-        self.attributes = attributes
-        self.getspeed = getspeed
-        self.method = method
-
-# Mudanca posterior: Car speed must be non-negative
-# Modificacao do usuario: User added speed but did not specify unit.
-",0.6,1.0,0.7499999999999999,0.75,1.0,0.5,1,0,0,4.4500004150904715e-05,0.0,0,1,heuristic_dsl | business_rule_change_applied,syntax
-out_of_pattern_business_rules,out_of_pattern,mock_llm,A_full_pipeline,A sensor event triggers alerts when readings are outside configured thresholds. Operators acknowledge alerts and may escalate incidents.,sensor;event;triggers;alerts;when;readings;are;outside;configured;thresholds;operators;acknowledge;may;escalate;incidents,"Class Figure:
-Attributes: triggers, alerts, when, readings, are
-Methods: trigger, acknowledge, escalate
-Class SensorEvent:
-Class Alert:
-Class Operator:
-Class Incident:
-Relation: Figure association SensorEvent
-Relation: Figure association Alert",,"class Figure:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self, triggers, alerts, when, readings, are, sensorEvent, alert):
-        self.triggers = triggers
-        self.alerts = alerts
-        self.when = when
-        self.readings = readings
-        self.are = are
-        self.sensorEvent = sensorEvent
-        self.alert = alert
-    def trigger(self):
-        pass
-    def acknowledge(self):
-        pass
-    def escalate(self):
-        pass
-
-class SensorEvent:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self):
-        pass
-
-class Alert:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self):
-        pass
-
-class Operator:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self):
-        pass
-
-class Incident:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self):
-        pass
-",0.13333333333333333,0.2857142857142857,0.18181818181818182,0.9166666666666666,1.0,1.0,0,0,0,8.299999899463728e-05,0.0,0,1,heuristic_dsl,quality
-out_of_pattern_business_rules,out_of_pattern,mock_llm,B_no_dsl,A sensor event triggers alerts when readings are outside configured thresholds. Operators acknowledge alerts and may escalate incidents.,sensor;event;triggers;alerts;when;readings;are;outside;configured;thresholds;operators;acknowledge;may;escalate;incidents,,,"class Sensor:
-    # Regra de negocio: Gerado diretamente do CIM sem DSL
-    def __init__(self, event, triggers, alerts, when, readings):
-        self.event = event
-        self.triggers = triggers
-        self.alerts = alerts
-        self.when = when
-        self.readings = readings
-",0.13333333333333333,0.2857142857142857,0.18181818181818182,0.0,0.0,0.0,0,0,0,1.340000017080456e-05,0.0,0,2,heuristic_direct_code,quality
-out_of_pattern_business_rules,out_of_pattern,mock_llm,C_multilayer_dsl,A sensor event triggers alerts when readings are outside configured thresholds. Operators acknowledge alerts and may escalate incidents.,sensor;event;triggers;alerts;when;readings;are;outside;configured;thresholds;operators;acknowledge;may;escalate;incidents,"RequirementEntity: Figure
-RequirementEntity: SensorEvent
-RequirementEntity: Alert
-RequirementEntity: Operator
-RequirementEntity: Incident
-# TODO: extensão experimental; o artigo usa uma DSL intermediaria principal, nao multiplas camadas.","Class Figure:
-Attributes: triggers, alerts, when, readings, are
-Methods: trigger, acknowledge, escalate
-Class SensorEvent:
-Class Alert:
-Class Operator:
-Class Incident:
-Relation: Figure association SensorEvent
-Relation: Figure association Alert","class Figure:
-    # Regra de negocio: Derivada de DSL de requisitos e design
-    def __init__(self, triggers, alerts, when, readings, are, sensorEvent, alert):
-        self.triggers = triggers
-        self.alerts = alerts
-        self.when = when
-        self.readings = readings
-        self.are = are
-        self.sensorEvent = sensorEvent
-        self.alert = alert
-    def trigger(self):
-        pass
-    def acknowledge(self):
-        pass
-    def escalate(self):
-        pass
-
-class SensorEvent:
-    # Regra de negocio: Derivada de DSL de requisitos e design
-    def __init__(self):
-        pass
-
-class Alert:
-    # Regra de negocio: Derivada de DSL de requisitos e design
-    def __init__(self):
-        pass
-
-class Operator:
-    # Regra de negocio: Derivada de DSL de requisitos e design
-    def __init__(self):
-        pass
-
-class Incident:
-    # Regra de negocio: Derivada de DSL de requisitos e design
-    def __init__(self):
-        pass
-",0.13333333333333333,0.2857142857142857,0.18181818181818182,0.25,1.0,1.0,0,0,0,6.38999990769662e-05,0.0,0,1,heuristic_multilayer_dsl,quality
-out_of_pattern_business_rules,out_of_pattern,mock_llm,E_generalization,A sensor event triggers alerts when readings are outside configured thresholds. Operators acknowledge alerts and may escalate incidents.,sensor;event;triggers;alerts;when;readings;are;outside;configured;thresholds;operators;acknowledge;may;escalate;incidents,"Class Figure:
-Attributes: triggers, alerts, when, readings, are
-Methods: trigger, acknowledge, escalate
-Class SensorEvent:
-Class Alert:
-Class Operator:
-Class Incident:
-Relation: Figure association SensorEvent
-Relation: Figure association Alert",,"class Figure:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self, triggers, alerts, when, readings, are, sensorEvent, alert):
-        self.triggers = triggers
-        self.alerts = alerts
-        self.when = when
-        self.readings = readings
-        self.are = are
-        self.sensorEvent = sensorEvent
-        self.alert = alert
-    def trigger(self):
-        pass
-    def acknowledge(self):
-        pass
-    def escalate(self):
-        pass
-
-class SensorEvent:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self):
-        pass
-
-class Alert:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self):
-        pass
-
-class Operator:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self):
-        pass
-
-class Incident:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self):
-        pass
-",0.13333333333333333,0.2857142857142857,0.18181818181818182,0.9166666666666666,1.0,1.0,0,0,0,0.00012370000331429765,0.0,0,1,heuristic_dsl,quality
-out_of_pattern_business_rules,out_of_pattern,mock_llm,F_model_comparison,A sensor event triggers alerts when readings are outside configured thresholds. Operators acknowledge alerts and may escalate incidents.,sensor;event;triggers;alerts;when;readings;are;outside;configured;thresholds;operators;acknowledge;may;escalate;incidents,"Class Figure:
-Attributes: triggers, alerts, when, readings, are
-Methods: trigger, acknowledge, escalate
-Class SensorEvent:
-Class Alert:
-Class Operator:
-Class Incident:
-Relation: Figure association SensorEvent
-Relation: Figure association Alert",,"class Figure:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self, triggers, alerts, when, readings, are, sensorEvent, alert):
-        self.triggers = triggers
-        self.alerts = alerts
-        self.when = when
-        self.readings = readings
-        self.are = are
-        self.sensorEvent = sensorEvent
-        self.alert = alert
-    def trigger(self):
-        pass
-    def acknowledge(self):
-        pass
-    def escalate(self):
-        pass
-
-class SensorEvent:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self):
-        pass
-
-class Alert:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self):
-        pass
-
-class Operator:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self):
-        pass
-
-class Incident:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self):
-        pass
-",0.13333333333333333,0.2857142857142857,0.18181818181818182,0.9166666666666666,1.0,1.0,0,0,0,8.160000288626179e-05,0.0,0,1,heuristic_dsl,quality
-out_of_pattern_business_rules,out_of_pattern,mock_llm,D_business_rule_change,A sensor event triggers alerts when readings are outside configured thresholds. Operators acknowledge alerts and may escalate incidents.,sensor;event;triggers;alerts;when;readings;are;outside;configured;thresholds;operators;acknowledge;may;escalate;incidents,"Class Figure:
-Attributes: triggers, alerts, when, readings, are
-Methods: trigger, acknowledge, escalate
-Class SensorEvent:
-Class Alert:
-Class Operator:
-Class Incident:
-Relation: Figure association SensorEvent
-Relation: Figure association Alert",,"class Figure:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self, triggers, alerts, when, readings, are, sensorEvent, alert):
-        self.triggers = triggers
-        self.alerts = alerts
-        self.when = when
-        self.readings = readings
-        self.are = are
-        self.sensorEvent = sensorEvent
-        self.alert = alert
-    def trigger(self):
-        pass
-    def acknowledge(self):
-        pass
-    def escalate(self):
-        pass
-
-class SensorEvent:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self):
-        pass
-
-class Alert:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self):
-        pass
-
-class Operator:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self):
-        pass
-
-class Incident:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self):
-        pass
-
-# Mudanca posterior: Escalation requires supervisor approval
-# Modificacao do usuario: User added Incident as an entity after generation.
-",0.13333333333333333,0.2857142857142857,0.18181818181818182,0.9166666666666666,1.0,1.0,0,0,0,6.500000017695129e-05,0.0,0,1,heuristic_dsl | business_rule_change_applied,quality
+# TODO: regra de negocio mudou; artefato requer reconciliacao manual.
+",0.13333333333333333,0.2857142857142857,0.18181818181818182,0.9166666666666666,1.0,1.0,0,1,0.0,1,0.0002477000016369857,0.0,0,2,heuristic_dsl | business_rule_change_requested=Escalation requires supervisor approval | user_modification=User added Incident as an entity after generation.,business_rule

@@ -1,0 +1,4 @@
+scope,warning,action
+default_run,"Se apenas providers local/mock estiverem habilitados, os resultados servem para validar o pipeline, nao para conclusao empirica.","Habilite pelo menos um provider real em config/models.yaml: openai, ollama ou openai_compatible."
+bert_paper_reference,bert_paper_reference e mock_llm nao sao BERT/LLM reais; sao placeholders deterministivos.,Nao use esses resultados como comparacao com o paper na apresentacao.
+business_rule_change,A metrica agora ignora comentarios Python; mencionar a regra em comentario nao conta como consistencia.,Verifique business_rule_inconsistencies e semantic_rule_coverage.
