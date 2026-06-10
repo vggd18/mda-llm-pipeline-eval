@@ -43,6 +43,24 @@ models:
     cost_per_1k_input_tokens_usd: 0.00075
     cost_per_1k_output_tokens_usd: 0.0045
     notes: "Opcao OpenAI mais barata para comparar qualidade/custo."
+  - name: github_models_gpt4o_mini
+    provider: openai_compatible
+    enabled: false
+    model_id: "openai/gpt-4o-mini"
+    base_url: "https://models.github.ai/inference"
+    api_key_env: "GITHUB_TOKEN"
+    cost_per_1k_input_tokens_usd: 0.0
+    cost_per_1k_output_tokens_usd: 0.0
+    notes: "Modelo via GitHub Models; usa GITHUB_TOKEN/PAT com escopo models. Boa opcao gratuita para Codespaces."
+  - name: github_models_gpt41
+    provider: openai_compatible
+    enabled: false
+    model_id: "openai/gpt-4.1"
+    base_url: "https://models.github.ai/inference"
+    api_key_env: "GITHUB_TOKEN"
+    cost_per_1k_input_tokens_usd: 0.0
+    cost_per_1k_output_tokens_usd: 0.0
+    notes: "Modelo mais forte via GitHub Models; habilitar se sua conta tiver acesso."
   - name: ollama_qwen_recent_free
     provider: ollama
     enabled: false

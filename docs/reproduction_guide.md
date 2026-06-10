@@ -50,6 +50,35 @@ Depois habilite o modelo em `config/models.yaml`.
 
 ## 6. Rodar modelos gratuitos recentes
 
+Opcao recomendada no GitHub Codespaces: GitHub Models.
+
+1. Verifique se existe token disponivel:
+
+```bash
+echo $GITHUB_TOKEN
+```
+
+2. Se estiver vazio, crie um Personal Access Token no GitHub com escopo `models` e exporte:
+
+```bash
+export GITHUB_TOKEN="seu_token_aqui"
+```
+
+3. Em `config/models.yaml`, habilite:
+
+```yaml
+- name: github_models_gpt4o_mini
+  enabled: true
+```
+
+4. Rode:
+
+```bash
+python -m src.run_experiments
+```
+
+Tambem existe `github_models_gpt41`, que pode produzir resultados melhores se sua conta tiver acesso.
+
 Opcao A: Ollama local, gratuito mas dependente do hardware da maquina.
 
 1. Instale o Ollama.
@@ -80,3 +109,4 @@ OPENROUTER_API_KEY=sua_chave_aqui
 3. Defina `enabled: true`.
 
 Use essa opcao para evitar depender do hardware local, mas registre no relatorio que disponibilidade, limites e modelos gratuitos podem mudar.
+    

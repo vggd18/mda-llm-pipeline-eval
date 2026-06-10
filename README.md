@@ -58,6 +58,8 @@ Opcoes ja preparadas:
 
 - `gpt_current`: OpenAI GPT atual via API.
 - `gpt_current_cost_control`: OpenAI mais barato para custo/beneficio.
+- `github_models_gpt4o_mini`: GitHub Models gratuito/experimental no Codespaces.
+- `github_models_gpt41`: GitHub Models mais forte, se disponivel na sua conta.
 - `ollama_qwen_recent_free`: Qwen recente local via Ollama.
 - `ollama_deepseek_recent_free`: DeepSeek recente local via Ollama.
 - `ollama_llama_recent_free`: Llama recente local via Ollama.
@@ -73,6 +75,15 @@ python -m src.run_experiments
 ```
 
 Os nomes exatos dos modelos locais podem variar; ajuste o campo `model_id` conforme o que estiver instalado.
+
+Para GitHub Models no Codespaces:
+
+```bash
+echo $GITHUB_TOKEN
+python -m src.run_experiments
+```
+
+Antes de rodar, habilite `github_models_gpt4o_mini` ou `github_models_gpt41` em `config/models.yaml`. Se `$GITHUB_TOKEN` estiver vazio, crie um PAT com escopo `models` e rode `export GITHUB_TOKEN="..."`.
 
 Importante: a execucao padrao com `heuristic_baseline` serve para validar o pipeline e gerar arquivos de exemplo. Nao use esses numeros como conclusao empirica da comparacao com o paper. Para conclusoes, habilite pelo menos um provider real (`openai`, `ollama` ou `openai_compatible`).
 
