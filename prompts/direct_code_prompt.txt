@@ -1,0 +1,7 @@
+Gere codigo Python/PSM diretamente a partir do CIM, sem DSL intermediaria.
+
+Este prompt implementa a ablação "sem DSL", que nao corresponde ao pipeline principal do paper.
+Nao invente regras ausentes e sinalize ambiguidades.
+
+CIM:
+{cim_text}

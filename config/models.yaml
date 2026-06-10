@@ -1,0 +1,86 @@
+models:
+  - name: heuristic_baseline
+    provider: local
+    enabled: true
+    cost_per_1k_input_tokens_usd: 0.0
+    cost_per_1k_output_tokens_usd: 0.0
+    notes: "Baseline baseada em regras simples."
+  - name: bert_paper_reference
+    provider: mock
+    enabled: true
+    cost_per_1k_input_tokens_usd: 0.0
+    cost_per_1k_output_tokens_usd: 0.0
+    notes: "Referencia experimental ao modelo BERT usado no paper; mock local, nao fine-tuned real."
+  - name: roberta_paper_reference
+    provider: mock
+    enabled: false
+    cost_per_1k_input_tokens_usd: 0.0
+    cost_per_1k_output_tokens_usd: 0.0
+    notes: "Referencia ao modelo RoBERTa comparado no paper; habilitar apenas se implementar/fizer mock comparativo."
+  - name: xlnet_paper_reference
+    provider: mock
+    enabled: false
+    cost_per_1k_input_tokens_usd: 0.0
+    cost_per_1k_output_tokens_usd: 0.0
+    notes: "Referencia ao modelo XLNet comparado no paper."
+  - name: mock_llm
+    provider: mock
+    enabled: true
+    cost_per_1k_input_tokens_usd: 0.0
+    cost_per_1k_output_tokens_usd: 0.0
+    notes: "Mock deterministico para execucao local sem API."
+  - name: gpt_current
+    provider: openai
+    enabled: false
+    model_id: "gpt-5.5"
+    cost_per_1k_input_tokens_usd: 0.005
+    cost_per_1k_output_tokens_usd: 0.03
+    notes: "ChatGPT/OpenAI atual via API; docs oficiais indicam GPT-5.5 como modelo flagship em 2026-06-10."
+  - name: gpt_current_cost_control
+    provider: openai
+    enabled: false
+    model_id: "gpt-5.4-mini"
+    cost_per_1k_input_tokens_usd: 0.00075
+    cost_per_1k_output_tokens_usd: 0.0045
+    notes: "Opcao OpenAI mais barata para comparar qualidade/custo."
+  - name: ollama_qwen_recent_free
+    provider: ollama
+    enabled: false
+    model_id: "qwen3.5:32b"
+    base_url: "http://localhost:11434"
+    cost_per_1k_input_tokens_usd: 0.0
+    cost_per_1k_output_tokens_usd: 0.0
+    notes: "Modelo aberto/gratuito local via Ollama. Ajuste o model_id para o nome instalado no seu Ollama."
+  - name: ollama_deepseek_recent_free
+    provider: ollama
+    enabled: false
+    model_id: "deepseek-r1:32b"
+    base_url: "http://localhost:11434"
+    cost_per_1k_input_tokens_usd: 0.0
+    cost_per_1k_output_tokens_usd: 0.0
+    notes: "DeepSeek aberto/gratuito local via Ollama; alternativa mais justa que DeepSeek antigo do paper."
+  - name: ollama_llama_recent_free
+    provider: ollama
+    enabled: false
+    model_id: "llama4:scout"
+    base_url: "http://localhost:11434"
+    cost_per_1k_input_tokens_usd: 0.0
+    cost_per_1k_output_tokens_usd: 0.0
+    notes: "Modelo aberto local. Ajuste para um nome disponivel no seu ambiente, por exemplo llama3.3:70b se necessario."
+  - name: ollama_apertus_free
+    provider: ollama
+    enabled: false
+    model_id: "apertus:70b"
+    base_url: "http://localhost:11434"
+    cost_per_1k_input_tokens_usd: 0.0
+    cost_per_1k_output_tokens_usd: 0.0
+    notes: "Opcao aberta e auditavel; depende de disponibilidade local."
+  - name: openrouter_free_model
+    provider: openai_compatible
+    enabled: false
+    model_id: "TODO: inserir slug free atual do OpenRouter, por exemplo qwen/deepseek/llama free"
+    base_url: "https://openrouter.ai/api/v1"
+    api_key_env: "OPENROUTER_API_KEY"
+    cost_per_1k_input_tokens_usd: 0.0
+    cost_per_1k_output_tokens_usd: 0.0
+    notes: "Slot para modelos gratuitos hospedados. Confirmar slug atual antes de rodar."

@@ -1,0 +1,26 @@
+Extraia entidades UML do CIM abaixo usando o esquema IOB enriquecido descrito no paper.
+
+Nao invente informacoes ausentes. Quando faltar informacao, use:
+[CONFIRMAR COM BASE NO PAPER]
+
+Categorias validas:
+- B_CLASS_SOURCE/I_CLASS_SOURCE
+- B_CLASS_TARGET/I_CLASS_TARGET
+- B_ATTRIBUTE/I_ATTRIBUTE
+- B_METHOD/I_METHOD
+- B_ASSOCIATION
+- B_COMPOSITION
+- B_AGGREGATION
+- B_INHERITANCE
+- O
+
+CIM:
+{cim_text}
+
+Formato esperado:
+tokens_and_labels:
+classes:
+attributes:
+methods:
+relations:
+uncertainties:

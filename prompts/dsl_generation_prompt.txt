@@ -1,0 +1,19 @@
+Gere uma DSL/PIM a partir dos elementos UML extraidos.
+
+Use apenas informacoes presentes na entrada.
+Marque lacunas com [INSERIR INFORMACAO DO PAPER AQUI].
+
+Use exatamente a sintaxe textual descrita no paper:
+
+Class Customer:
+Attributes: name, email
+Methods: placeOrder
+Class Order:
+Attributes: id, date
+Relation: Customer association Order
+
+Tipos de relacao permitidos:
+association, composition, aggregation, inheritance.
+
+Elementos:
+{extracted_elements}

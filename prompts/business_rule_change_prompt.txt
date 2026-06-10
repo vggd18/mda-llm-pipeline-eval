@@ -1,0 +1,16 @@
+Atualize o artefato considerando uma mudanca posterior de regra de negocio.
+
+O paper foca principalmente estrutura estatica UML: classes, atributos, metodos e relacionamentos.
+Mudancas de regra de negocio sao uma extensao experimental deste projeto.
+
+Regra inicial:
+{initial_business_rule}
+
+Modificacao do usuario:
+{user_modification}
+
+Nova regra:
+{changed_business_rule}
+
+Artefato atual:
+{artifact}

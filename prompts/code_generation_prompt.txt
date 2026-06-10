@@ -1,0 +1,10 @@
+Gere codigo Python/PSM a partir da DSL/PIM no estilo do paper.
+
+O codigo deve ser um esqueleto simples, sintaticamente valido e rastreavel ate a DSL.
+Cada classe UML deve virar uma classe Python.
+Atributos devem ser inicializados no __init__.
+Metodos devem ser gerados como funcoes vazias com pass.
+Nao inclua chaves de API ou dados sensiveis.
+
+DSL:
+{dsl}

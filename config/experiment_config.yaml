@@ -1,0 +1,31 @@
+seed: 42
+results_dir: results
+experiments:
+  A_full_pipeline: true
+  B_no_dsl: true
+  C_multilayer_dsl: true
+  D_business_rule_change: true
+  E_generalization: true
+  F_model_comparison: true
+evaluation:
+  require_gold_standard_for_correctness: true
+  syntactic_validation_language: python
+  semantic_validation: "Comparar entidades UML, relacoes, fidelidade semantica e executabilidade; TODO: operacionalizar com o professor."
+  paper_method_details: "Paper: NER com Transformers fine-tuned em corpus IOB enriquecido; DSL textual como PIM; UML class diagram como PSM; codigo Python esqueleto."
+paper_reference:
+  title: "LLM-Driven MDA Pipeline for Generating UML Class Diagrams and Code"
+  authors: "Zakaria Babaalla, Abdeslam Jakimi, Mohamed Oualla"
+  publication: "IEEE Access, 2025"
+  doi: "10.1109/ACCESS.2025.3615828"
+  corpus_specifications: 132
+  corpus_sentences: 915
+  corpus_tokens: 11460
+  annotated_entity_occurrences: 10650
+  train_split: 0.8
+  test_split: 0.2
+  test_sentences_approx: 185
+  dsl_test_specifications: 26
+  dsl_syntactic_validity_reported: 1.0
+  dsl_no_modification_rate_reported: 0.74
+  dsl_minor_edit_rate_reported: 0.20
+  dsl_partial_rewrite_rate_reported: 0.06
