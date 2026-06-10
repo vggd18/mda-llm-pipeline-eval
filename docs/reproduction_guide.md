@@ -109,3 +109,21 @@ OPENROUTER_API_KEY=sua_chave_aqui
 3. Defina `enabled: true`.
 
 Use essa opcao para evitar depender do hardware local, mas registre no relatorio que disponibilidade, limites e modelos gratuitos podem mudar.
+
+## 7. Evitar erro 429 em APIs gratuitas
+
+Erro `HTTP Error 429: Too Many Requests` significa limite de taxa, nao timeout. A versao atual tenta novamente com backoff e permite configurar:
+
+```yaml
+request_delay_seconds: 5
+max_retries: 6
+timeout_seconds: 180
+```
+
+Para reduzir 429, rode poucos modelos por vez. Por exemplo:
+
+1. Habilite `heuristic_baseline` e `github_models_gpt4o_mini`, rode e salve os resultados.
+2. Depois habilite `github_models_gpt41`, rode novamente.
+3. Depois habilite `openrouter_free_model`, rode novamente.
+
+Se o problema persistir, aumente `request_delay_seconds` para `10` ou `15` nos modelos gratuitos.

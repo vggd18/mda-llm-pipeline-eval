@@ -1,5 +1,6 @@
 import os
 import json
+import time
 import urllib.error
 import urllib.request
 from dataclasses import dataclass
@@ -100,6 +101,9 @@ class OpenAICompatibleClient(BaseModelClient):
         self.model_id = model.get("model_id", "")
         self.base_url = model.get("base_url") or os.getenv(model.get("base_url_env", "OPENAI_COMPATIBLE_BASE_URL"), "")
         self.api_key = os.getenv(model.get("api_key_env", "OPENAI_COMPATIBLE_API_KEY"), "")
+        self.request_delay_seconds = float(model.get("request_delay_seconds") or 0)
+        self.max_retries = int(model.get("max_retries") or 4)
+        self.timeout_seconds = int(model.get("timeout_seconds") or 180)
 
     def generate(self, prompt: str) -> ModelResponse:
         if not self.base_url or not self.api_key:
@@ -116,15 +120,34 @@ class OpenAICompatibleClient(BaseModelClient):
             headers={"Content-Type": "application/json", "Authorization": f"Bearer {self.api_key}"},
             method="POST",
         )
-        try:
-            with urllib.request.urlopen(request, timeout=120) as response:
-                body = json.loads(response.read().decode("utf-8"))
-        except (urllib.error.URLError, TimeoutError, json.JSONDecodeError) as exc:
-            return ModelResponse(
-                text=f"[ERRO: provedor compativel OpenAI indisponivel para {self.model_id}: {exc}]",
-                input_tokens=len(prompt.split()),
-                output_tokens=0,
-            )
+        last_error = None
+        for attempt in range(self.max_retries + 1):
+            if self.request_delay_seconds:
+                time.sleep(self.request_delay_seconds)
+            try:
+                with urllib.request.urlopen(request, timeout=self.timeout_seconds) as response:
+                    body = json.loads(response.read().decode("utf-8"))
+                break
+            except urllib.error.HTTPError as exc:
+                last_error = exc
+                if exc.code != 429 or attempt >= self.max_retries:
+                    return ModelResponse(
+                        text=f"[ERRO: provedor compativel OpenAI indisponivel para {self.model_id}: {exc}]",
+                        input_tokens=len(prompt.split()),
+                        output_tokens=0,
+                    )
+                retry_after = exc.headers.get("Retry-After")
+                wait_seconds = float(retry_after) if retry_after and retry_after.isdigit() else min(60, 2 ** attempt * 5)
+                time.sleep(wait_seconds)
+            except (urllib.error.URLError, TimeoutError, json.JSONDecodeError) as exc:
+                last_error = exc
+                if attempt >= self.max_retries:
+                    return ModelResponse(
+                        text=f"[ERRO: provedor compativel OpenAI indisponivel para {self.model_id}: {last_error}]",
+                        input_tokens=len(prompt.split()),
+                        output_tokens=0,
+                    )
+                time.sleep(min(30, 2 ** attempt * 3))
         text = body.get("choices", [{}])[0].get("message", {}).get("content", "")
         usage = body.get("usage", {})
         return ModelResponse(

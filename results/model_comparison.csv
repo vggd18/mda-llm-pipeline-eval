@@ -1,2 +1,0 @@
-model,entity_f1,dsl_syntax_validity,code_correct_rate,business_rule_inconsistencies,end_to_end_success,stage_failure_count
-heuristic_baseline,0.4329464979464979,0.8,0.7027777777777777,0.2,0.36666666666666664,0.8333333333333334

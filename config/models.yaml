@@ -4,101 +4,69 @@ models:
     enabled: true
     cost_per_1k_input_tokens_usd: 0.0
     cost_per_1k_output_tokens_usd: 0.0
-    notes: "Baseline baseada em regras simples."
-  - name: bert_paper_reference
-    provider: mock
-    enabled: false
-    cost_per_1k_input_tokens_usd: 0.0
-    cost_per_1k_output_tokens_usd: 0.0
-    notes: "Referencia experimental ao modelo BERT usado no paper; mock local, nao fine-tuned real."
-  - name: roberta_paper_reference
-    provider: mock
-    enabled: false
-    cost_per_1k_input_tokens_usd: 0.0
-    cost_per_1k_output_tokens_usd: 0.0
-    notes: "Referencia ao modelo RoBERTa comparado no paper; habilitar apenas se implementar/fizer mock comparativo."
-  - name: xlnet_paper_reference
-    provider: mock
-    enabled: false
-    cost_per_1k_input_tokens_usd: 0.0
-    cost_per_1k_output_tokens_usd: 0.0
-    notes: "Referencia ao modelo XLNet comparado no paper."
-  - name: mock_llm
-    provider: mock
-    enabled: false
-    cost_per_1k_input_tokens_usd: 0.0
-    cost_per_1k_output_tokens_usd: 0.0
-    notes: "Mock deterministico para execucao local sem API."
-  - name: gpt_current
-    provider: openai
-    enabled: false
-    model_id: "gpt-5.5"
-    cost_per_1k_input_tokens_usd: 0.005
-    cost_per_1k_output_tokens_usd: 0.03
-    notes: "ChatGPT/OpenAI atual via API; docs oficiais indicam GPT-5.5 como modelo flagship em 2026-06-10."
-  - name: gpt_current_cost_control
-    provider: openai
-    enabled: false
-    model_id: "gpt-5.4-mini"
-    cost_per_1k_input_tokens_usd: 0.00075
-    cost_per_1k_output_tokens_usd: 0.0045
-    notes: "Opcao OpenAI mais barata para comparar qualidade/custo."
+    notes: "Baseline heuristico local e reproduzivel."
+
   - name: github_models_gpt4o_mini
     provider: openai_compatible
     enabled: true
     model_id: "openai/gpt-4o-mini"
     base_url: "https://models.github.ai/inference"
     api_key_env: "GITHUB_TOKEN"
+    request_delay_seconds: 4
+    max_retries: 6
+    timeout_seconds: 180
     cost_per_1k_input_tokens_usd: 0.0
     cost_per_1k_output_tokens_usd: 0.0
-    notes: "Modelo via GitHub Models; usa GITHUB_TOKEN/PAT com escopo models. Boa opcao gratuita para Codespaces."
+    notes: "GPT-4o mini via GitHub Models."
+
   - name: github_models_gpt41
     provider: openai_compatible
     enabled: true
     model_id: "openai/gpt-4.1"
     base_url: "https://models.github.ai/inference"
     api_key_env: "GITHUB_TOKEN"
+    request_delay_seconds: 5
+    max_retries: 6
+    timeout_seconds: 180
     cost_per_1k_input_tokens_usd: 0.0
     cost_per_1k_output_tokens_usd: 0.0
-    notes: "Modelo mais forte via GitHub Models; habilitar se sua conta tiver acesso."
-  - name: ollama_qwen_recent_free
-    provider: ollama
-    enabled: false
-    model_id: "qwen3.5:32b"
-    base_url: "http://localhost:11434"
-    cost_per_1k_input_tokens_usd: 0.0
-    cost_per_1k_output_tokens_usd: 0.0
-    notes: "Modelo aberto/gratuito local via Ollama. Ajuste o model_id para o nome instalado no seu Ollama."
-  - name: ollama_deepseek_recent_free
-    provider: ollama
-    enabled: false
-    model_id: "deepseek-r1:32b"
-    base_url: "http://localhost:11434"
-    cost_per_1k_input_tokens_usd: 0.0
-    cost_per_1k_output_tokens_usd: 0.0
-    notes: "DeepSeek aberto/gratuito local via Ollama; alternativa mais justa que DeepSeek antigo do paper."
-  - name: ollama_llama_recent_free
-    provider: ollama
-    enabled: false
-    model_id: "llama4:scout"
-    base_url: "http://localhost:11434"
-    cost_per_1k_input_tokens_usd: 0.0
-    cost_per_1k_output_tokens_usd: 0.0
-    notes: "Modelo aberto local. Ajuste para um nome disponivel no seu ambiente, por exemplo llama3.3:70b se necessario."
-  - name: ollama_apertus_free
-    provider: ollama
-    enabled: false
-    model_id: "apertus:70b"
-    base_url: "http://localhost:11434"
-    cost_per_1k_input_tokens_usd: 0.0
-    cost_per_1k_output_tokens_usd: 0.0
-    notes: "Opcao aberta e auditavel; depende de disponibilidade local."
-  - name: openrouter_free_model
+    notes: "GPT-4.1 via GitHub Models."
+
+  - name: openrouter_qwen3_coder_free
     provider: openai_compatible
-    enabled: false
-    model_id: "TODO: inserir slug free atual do OpenRouter, por exemplo qwen/deepseek/llama free"
+    enabled: true
+    model_id: "qwen/qwen3-coder:free"
     base_url: "https://openrouter.ai/api/v1"
     api_key_env: "OPENROUTER_API_KEY"
+    request_delay_seconds: 10
+    max_retries: 6
+    timeout_seconds: 240
     cost_per_1k_input_tokens_usd: 0.0
     cost_per_1k_output_tokens_usd: 0.0
-    notes: "Slot para modelos gratuitos hospedados. Confirmar slug atual antes de rodar."
+    notes: "Qwen3 Coder gratuito via OpenRouter; foco em codigo/DSL."
+
+  - name: openrouter_llama33_70b_free
+    provider: openai_compatible
+    enabled: false
+    model_id: "meta-llama/llama-3.3-70b-instruct:free"
+    base_url: "https://openrouter.ai/api/v1"
+    api_key_env: "OPENROUTER_API_KEY"
+    request_delay_seconds: 10
+    max_retries: 6
+    timeout_seconds: 240
+    cost_per_1k_input_tokens_usd: 0.0
+    cost_per_1k_output_tokens_usd: 0.0
+    notes: "Llama 3.3 70B gratuito via OpenRouter."
+
+  - name: openrouter_gpt_oss_120b_free
+    provider: openai_compatible
+    enabled: false
+    model_id: "openai/gpt-oss-120b:free"
+    base_url: "https://openrouter.ai/api/v1"
+    api_key_env: "OPENROUTER_API_KEY"
+    request_delay_seconds: 10
+    max_retries: 6
+    timeout_seconds: 240
+    cost_per_1k_input_tokens_usd: 0.0
+    cost_per_1k_output_tokens_usd: 0.0
+    notes: "GPT-OSS 120B gratuito via OpenRouter."
