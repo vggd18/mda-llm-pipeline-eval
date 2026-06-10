@@ -17,6 +17,7 @@ from src.metrics.classification import precision_recall_f1, split_terms
 from src.pipelines.model_clients import build_client
 from src.pipelines.variants import (
     apply_business_rule_change,
+    apply_business_rule_change_with_model,
     run_full_pipeline,
     run_multilayer_dsl_pipeline,
     run_no_dsl_pipeline,
@@ -139,7 +140,6 @@ def main() -> None:
         "B_no_dsl": run_no_dsl_pipeline,
         "C_multilayer_dsl": run_multilayer_dsl_pipeline,
         "E_generalization": run_full_pipeline,
-        "F_model_comparison": run_full_pipeline,
     }
 
     rows = []
@@ -160,10 +160,11 @@ def main() -> None:
 
             start = time.perf_counter()
             base_output = run_full_pipeline(case.get("cim_text", ""), client)
-            changed = apply_business_rule_change(
+            changed = apply_business_rule_change_with_model(
                 base_output,
                 case.get("changed_business_rule", ""),
                 case.get("user_modification", ""),
+                client,
             )
             elapsed = time.perf_counter() - start
             rows.append(_evaluate(case, gold, changed, elapsed, model, "D_business_rule_change"))
@@ -224,6 +225,16 @@ def main() -> None:
 
     ablation = raw[raw["experiment"].isin(["A_full_pipeline", "B_no_dsl", "C_multilayer_dsl"])]
     ablation.to_csv(results_dir / "ablation_results.csv", index=False, encoding="utf-8")
+
+    model_comparison = raw.groupby("model", as_index=False).agg(
+        entity_f1=("entity_f1", "mean"),
+        dsl_syntax_validity=("dsl_syntax_validity", "mean"),
+        code_correct_rate=("code_correct_rate", "mean"),
+        business_rule_inconsistencies=("business_rule_inconsistencies", "mean"),
+        end_to_end_success=("end_to_end_success", "mean"),
+        stage_failure_count=("stage_failure_count", "mean"),
+    )
+    model_comparison.to_csv(results_dir / "model_comparison.csv", index=False, encoding="utf-8")
 
     write_figures(raw, summary, results_dir / "figures")
     LOGGER.info("Resultados gerados em %s", results_dir)

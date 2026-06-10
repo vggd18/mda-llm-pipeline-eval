@@ -93,6 +93,7 @@ Saidas geradas:
 - `results/summary_metrics.csv`
 - `results/error_analysis.csv`
 - `results/ablation_results.csv`
+- `results/model_comparison.csv`
 - `results/figures/f1_by_model.png`
 - `results/figures/end_to_end_success.png`
 - `results/figures/errors_by_stage.png`

@@ -74,6 +74,24 @@ Specification:
     return _extract_text_block(response.text), response.text
 
 
+def _terms_from_dsl(dsl: str) -> list[str]:
+    model = parse_paper_style_dsl(dsl)
+    terms: list[str] = []
+    for uml_class in model.classes:
+        terms.append(uml_class.name)
+        terms.extend(uml_class.attributes)
+        terms.extend(uml_class.methods)
+    for relation in model.relations:
+        terms.extend([relation.source, relation.relation_type, relation.target])
+    normalized = []
+    for term in terms:
+        cleaned = re.sub(r"(?<!^)(?=[A-Z])", " ", term).replace("_", " ").lower()
+        for part in cleaned.split():
+            if part not in normalized:
+                normalized.append(part)
+    return normalized
+
+
 @dataclass
 class PipelineOutput:
     extracted_entities: str
@@ -160,6 +178,7 @@ def run_full_pipeline(cim_text: str, model: BaseModelClient) -> PipelineOutput:
         candidate_dsl, model_hint = _generate_dsl_with_model(cim_text, model)
         if candidate_dsl and dsl_syntax_error_count(candidate_dsl) == 0:
             dsl = candidate_dsl
+            terms = _terms_from_dsl(dsl)
         else:
             model_hint += " | fallback_to_heuristic_dsl"
     code = _code_from_dsl(dsl, "Pipeline aproximado inspirado no artigo; codigo esqueleto Python.")
@@ -194,3 +213,34 @@ def apply_business_rule_change(output: PipelineOutput, changed_rule: str, user_m
     changed_code = output.code + "\n# TODO: regra de negocio mudou; artefato requer reconciliacao manual.\n"
     notes = output.notes + f" | business_rule_change_requested={changed_rule} | user_modification={user_modification}"
     return PipelineOutput(output.extracted_entities, output.requirements_dsl, output.design_dsl, changed_code, notes)
+
+
+def apply_business_rule_change_with_model(
+    output: PipelineOutput,
+    changed_rule: str,
+    user_modification: str,
+    model: BaseModelClient,
+) -> PipelineOutput:
+    if not model.uses_real_generation:
+        return apply_business_rule_change(output, changed_rule, user_modification)
+
+    prompt = f"""Update the Python code to reflect the changed business rule.
+Return only syntactically valid Python code. Do not explain. Do not use Markdown.
+
+Changed business rule:
+{changed_rule}
+
+User modification:
+{user_modification}
+
+Current code:
+{output.code}
+"""
+    response = model.generate(prompt)
+    candidate_code = _extract_text_block(response.text)
+    if candidate_code.startswith("class "):
+        notes = output.notes + " | business_rule_change_model_update"
+        return PipelineOutput(output.extracted_entities, output.requirements_dsl, output.design_dsl, candidate_code, notes)
+    changed = apply_business_rule_change(output, changed_rule, user_modification)
+    changed.notes += " | model_failed_business_rule_update"
+    return changed

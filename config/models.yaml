@@ -45,7 +45,7 @@ models:
     notes: "Opcao OpenAI mais barata para comparar qualidade/custo."
   - name: github_models_gpt4o_mini
     provider: openai_compatible
-    enabled: false
+    enabled: true
     model_id: "openai/gpt-4o-mini"
     base_url: "https://models.github.ai/inference"
     api_key_env: "GITHUB_TOKEN"
@@ -54,7 +54,7 @@ models:
     notes: "Modelo via GitHub Models; usa GITHUB_TOKEN/PAT com escopo models. Boa opcao gratuita para Codespaces."
   - name: github_models_gpt41
     provider: openai_compatible
-    enabled: false
+    enabled: true
     model_id: "openai/gpt-4.1"
     base_url: "https://models.github.ai/inference"
     api_key_env: "GITHUB_TOKEN"
