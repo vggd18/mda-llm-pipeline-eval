@@ -109,4 +109,3 @@ OPENROUTER_API_KEY=sua_chave_aqui
 3. Defina `enabled: true`.
 
 Use essa opcao para evitar depender do hardware local, mas registre no relatorio que disponibilidade, limites e modelos gratuitos podem mudar.
-    

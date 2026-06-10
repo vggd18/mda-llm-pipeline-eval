@@ -39,7 +39,7 @@ class StorageDevice:
     # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
     def __init__(self):
         pass
-",0.4375,0.7777777777777778,0.56,0.7857142857142857,1.0,1.0,0,1,0.0,0,0.0002454999994370155,0.0,1,0,heuristic_dsl
+",0.4375,0.7777777777777778,0.56,0.7857142857142857,1.0,1.0,0,1,0.0,0,0.0003218289998585533,0.0,1,0,heuristic_dsl
 scenario_1_hardware,medium,heuristic_baseline,local,baseline_or_mock_only,B_no_dsl,"A personal computer contains a motherboard, processor, memory modules, storage devices and peripheral devices. The computer starts, shuts down and reports hardware status.",personal;computer;contains;motherboard;processor;memory;modules;storage;devices;peripheral;starts;shuts;down;reports;hardware;status,,,"class Personal:
     # Regra de negocio: Gerado diretamente do CIM sem DSL
     def __init__(self, computer, contains, motherboard, processor, memory):
@@ -48,7 +48,7 @@ scenario_1_hardware,medium,heuristic_baseline,local,baseline_or_mock_only,B_no_d
         self.motherboard = motherboard
         self.processor = processor
         self.memory = memory
-",0.4375,0.7777777777777778,0.56,0.0,0.0,0.5,0,1,0.0,0,2.6399997295811772e-05,0.0,1,0,heuristic_direct_code
+",0.4375,0.7777777777777778,0.56,0.0,0.0,0.5,0,1,0.0,0,3.7135999718884705e-05,0.0,1,0,heuristic_direct_code
 scenario_1_hardware,medium,heuristic_baseline,local,baseline_or_mock_only,C_multilayer_dsl,"A personal computer contains a motherboard, processor, memory modules, storage devices and peripheral devices. The computer starts, shuts down and reports hardware status.",personal;computer;contains;motherboard;processor;memory;modules;storage;devices;peripheral;starts;shuts;down;reports;hardware;status,"RequirementEntity: Computer
 RequirementEntity: Motherboard
 RequirementEntity: Processor
@@ -94,7 +94,7 @@ class StorageDevice:
     # Regra de negocio: Derivada de DSL de requisitos e design
     def __init__(self):
         pass
-",0.4375,0.7777777777777778,0.56,0.35714285714285715,1.0,1.0,0,1,0.0,0,8.97999998414889e-05,0.0,1,0,heuristic_multilayer_dsl
+",0.4375,0.7777777777777778,0.56,0.35714285714285715,1.0,1.0,0,1,0.0,0,0.00012124100021537743,0.0,1,0,heuristic_multilayer_dsl
 scenario_2_editorial,medium,heuristic_baseline,local,baseline_or_mock_only,A_full_pipeline,"An editorial document has sections, paragraphs, figures and references. An author writes the document and an editor reviews and validates it.",editorial;document;sections;paragraphs;figures;references;author;writes;editor;reviews;validates,"Class Document:
 Attributes: editorial, sections, paragraphs, figures, references
 Methods: write, review, validate
@@ -139,7 +139,7 @@ class Reference:
     # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
     def __init__(self):
         pass
-",0.2727272727272727,0.3333333333333333,0.3,0.9333333333333333,1.0,0.5,0,1,0.0,0,8.850000449456275e-05,0.0,0,1,heuristic_dsl
+",0.2727272727272727,0.3333333333333333,0.3,0.9333333333333333,1.0,0.5,0,1,0.0,0,0.00010657799975888338,0.0,0,1,heuristic_dsl
 scenario_2_editorial,medium,heuristic_baseline,local,baseline_or_mock_only,B_no_dsl,"An editorial document has sections, paragraphs, figures and references. An author writes the document and an editor reviews and validates it.",editorial;document;sections;paragraphs;figures;references;author;writes;editor;reviews;validates,,,"class Editorial:
     # Regra de negocio: Gerado diretamente do CIM sem DSL
     def __init__(self, document, sections, paragraphs, figures, references):
@@ -148,7 +148,7 @@ scenario_2_editorial,medium,heuristic_baseline,local,baseline_or_mock_only,B_no_
         self.paragraphs = paragraphs
         self.figures = figures
         self.references = references
-",0.2727272727272727,0.3333333333333333,0.3,0.0,0.0,0.25,0,1,0.0,0,2.0699997548945248e-05,0.0,0,2,heuristic_direct_code
+",0.2727272727272727,0.3333333333333333,0.3,0.0,0.0,0.25,0,1,0.0,0,2.6258999696437968e-05,0.0,0,2,heuristic_direct_code
 scenario_2_editorial,medium,heuristic_baseline,local,baseline_or_mock_only,C_multilayer_dsl,"An editorial document has sections, paragraphs, figures and references. An author writes the document and an editor reviews and validates it.",editorial;document;sections;paragraphs;figures;references;author;writes;editor;reviews;validates,"RequirementEntity: Document
 RequirementEntity: Section
 RequirementEntity: Paragraph
@@ -198,7 +198,7 @@ class Reference:
     # Regra de negocio: Derivada de DSL de requisitos e design
     def __init__(self):
         pass
-",0.2727272727272727,0.3333333333333333,0.3,0.06666666666666667,1.0,0.5,0,1,0.0,0,8.099999831756577e-05,0.0,0,1,heuristic_multilayer_dsl
+",0.2727272727272727,0.3333333333333333,0.3,0.06666666666666667,1.0,0.5,0,1,0.0,0,0.00010180200024478836,0.0,0,1,heuristic_multilayer_dsl
 scenario_3_library,complex,heuristic_baseline,local,baseline_or_mock_only,A_full_pipeline,"A municipal library manages books, members and loans. A member borrows books, returns loans and may pay penalties for late returns.",municipal;library;manages;books;members;loans;member;borrows;returns;may;pay;penalties;for;late,"Class Library:
 Attributes: municipal, manages, books, members, loans
 Methods: manage, borrow, return, pay
@@ -239,7 +239,7 @@ class Loan:
     # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
     def __init__(self):
         pass
-",0.14285714285714285,0.2857142857142857,0.19047619047619047,0.8333333333333334,1.0,1.0,0,1,0.0,0,7.210000330815092e-05,0.0,0,1,heuristic_dsl
+",0.14285714285714285,0.2857142857142857,0.19047619047619047,0.8333333333333334,1.0,1.0,0,1,0.0,0,9.724499977892265e-05,0.0,0,1,heuristic_dsl
 scenario_3_library,complex,heuristic_baseline,local,baseline_or_mock_only,B_no_dsl,"A municipal library manages books, members and loans. A member borrows books, returns loans and may pay penalties for late returns.",municipal;library;manages;books;members;loans;member;borrows;returns;may;pay;penalties;for;late,,,"class Municipal:
     # Regra de negocio: Gerado diretamente do CIM sem DSL
     def __init__(self, library, manages, books, members, loans):
@@ -248,7 +248,7 @@ scenario_3_library,complex,heuristic_baseline,local,baseline_or_mock_only,B_no_d
         self.books = books
         self.members = members
         self.loans = loans
-",0.14285714285714285,0.2857142857142857,0.19047619047619047,0.0,0.0,0.0,0,1,0.0,0,2.0499996026046574e-05,0.0,0,2,heuristic_direct_code
+",0.14285714285714285,0.2857142857142857,0.19047619047619047,0.0,0.0,0.0,0,1,0.0,0,2.479700015101116e-05,0.0,0,2,heuristic_direct_code
 scenario_3_library,complex,heuristic_baseline,local,baseline_or_mock_only,C_multilayer_dsl,"A municipal library manages books, members and loans. A member borrows books, returns loans and may pay penalties for late returns.",municipal;library;manages;books;members;loans;member;borrows;returns;may;pay;penalties;for;late,"RequirementEntity: Library
 RequirementEntity: Book
 RequirementEntity: Member
@@ -293,7 +293,7 @@ class Loan:
     # Regra de negocio: Derivada de DSL de requisitos e design
     def __init__(self):
         pass
-",0.14285714285714285,0.2857142857142857,0.19047619047619047,0.3333333333333333,1.0,1.0,0,1,0.0,0,6.989999383222312e-05,0.0,0,1,heuristic_multilayer_dsl
+",0.14285714285714285,0.2857142857142857,0.19047619047619047,0.3333333333333333,1.0,1.0,0,1,0.0,0,8.87220003278344e-05,0.0,0,1,heuristic_multilayer_dsl
 ambiguous_implicit_relation,ambiguous,heuristic_baseline,local,baseline_or_mock_only,A_full_pipeline,Each order contains multiple items. The customer receives a message when the order is confirmed.,order;contains;items;customer;receives;message;when;confirmed,"Class Order:
 Attributes: contains, items, receives, when, confirmed
 Methods: confirm, receive
@@ -330,7 +330,7 @@ class Message:
     # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
     def __init__(self):
         pass
-",0.5,0.8,0.6153846153846154,1.0,1.0,1.0,0,1,0.0,0,7.790000381646678e-05,0.0,1,0,heuristic_dsl
+",0.5,0.8,0.6153846153846154,1.0,1.0,1.0,0,1,0.0,0,7.860699997763732e-05,0.0,1,0,heuristic_dsl
 ambiguous_implicit_relation,ambiguous,heuristic_baseline,local,baseline_or_mock_only,B_no_dsl,Each order contains multiple items. The customer receives a message when the order is confirmed.,order;contains;items;customer;receives;message;when;confirmed,,,"class Order:
     # Regra de negocio: Gerado diretamente do CIM sem DSL
     def __init__(self, contains, items, customer, receives, message):
@@ -339,7 +339,7 @@ ambiguous_implicit_relation,ambiguous,heuristic_baseline,local,baseline_or_mock_
         self.customer = customer
         self.receives = receives
         self.message = message
-",0.5,0.8,0.6153846153846154,0.0,0.0,0.3333333333333333,0,1,0.0,0,1.8300001102034003e-05,0.0,1,0,heuristic_direct_code
+",0.5,0.8,0.6153846153846154,0.0,0.0,0.3333333333333333,0,1,0.0,0,2.1242000002530403e-05,0.0,1,0,heuristic_direct_code
 ambiguous_implicit_relation,ambiguous,heuristic_baseline,local,baseline_or_mock_only,C_multilayer_dsl,Each order contains multiple items. The customer receives a message when the order is confirmed.,order;contains;items;customer;receives;message;when;confirmed,"RequirementEntity: Order
 RequirementEntity: Item
 RequirementEntity: Customer
@@ -380,7 +380,7 @@ class Message:
     # Regra de negocio: Derivada de DSL de requisitos e design
     def __init__(self):
         pass
-",0.5,0.8,0.6153846153846154,0.5,1.0,1.0,0,1,0.0,0,6.549999670824036e-05,0.0,1,0,heuristic_multilayer_dsl
+",0.5,0.8,0.6153846153846154,0.5,1.0,1.0,0,1,0.0,0,0.00013093500001559732,0.0,1,0,heuristic_multilayer_dsl
 incomplete_coreference,incomplete,heuristic_baseline,local,baseline_or_mock_only,A_full_pipeline,The class Car has several attributes. It also includes the getSpeed method.,class;car;attributes;getspeed;method,"Class Car:
 Attributes: class, attributes, getspeed, method",,"class Car:
     # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
@@ -389,7 +389,7 @@ Attributes: class, attributes, getspeed, method",,"class Car:
         self.attributes = attributes
         self.getspeed = getspeed
         self.method = method
-",0.6,1.0,0.7499999999999999,0.75,1.0,0.5,0,1,0.0,0,3.309999738121405e-05,0.0,1,0,heuristic_dsl
+",0.6,1.0,0.7499999999999999,0.75,1.0,0.5,0,1,0.0,0,6.808099988120375e-05,0.0,1,0,heuristic_dsl
 incomplete_coreference,incomplete,heuristic_baseline,local,baseline_or_mock_only,B_no_dsl,The class Car has several attributes. It also includes the getSpeed method.,class;car;attributes;getspeed;method,,,"class Class:
     # Regra de negocio: Gerado diretamente do CIM sem DSL
     def __init__(self, car, attributes, getspeed, method):
@@ -397,7 +397,7 @@ incomplete_coreference,incomplete,heuristic_baseline,local,baseline_or_mock_only
         self.attributes = attributes
         self.getspeed = getspeed
         self.method = method
-",0.6,1.0,0.7499999999999999,0.0,0.0,0.0,0,1,0.0,0,1.5199999324977398e-05,0.0,0,1,heuristic_direct_code
+",0.6,1.0,0.7499999999999999,0.0,0.0,0.0,0,1,0.0,0,3.488199990897556e-05,0.0,0,1,heuristic_direct_code
 incomplete_coreference,incomplete,heuristic_baseline,local,baseline_or_mock_only,C_multilayer_dsl,The class Car has several attributes. It also includes the getSpeed method.,class;car;attributes;getspeed;method,"RequirementEntity: Car
 # TODO: extensão experimental; o artigo usa uma DSL intermediaria principal, nao multiplas camadas.","Class Car:
 Attributes: class, attributes, getspeed, method","class Car:
@@ -407,7 +407,7 @@ Attributes: class, attributes, getspeed, method","class Car:
         self.attributes = attributes
         self.getspeed = getspeed
         self.method = method
-",0.6,1.0,0.7499999999999999,0.25,1.0,0.5,0,1,0.0,0,2.7000001864507794e-05,0.0,1,0,heuristic_multilayer_dsl
+",0.6,1.0,0.7499999999999999,0.25,1.0,0.5,0,1,0.0,0,5.7715999901120085e-05,0.0,1,0,heuristic_multilayer_dsl
 out_of_pattern_business_rules,out_of_pattern,heuristic_baseline,local,baseline_or_mock_only,A_full_pipeline,A sensor event triggers alerts when readings are outside configured thresholds. Operators acknowledge alerts and may escalate incidents.,sensor;event;triggers;alerts;when;readings;are;outside;configured;thresholds;operators;acknowledge;may;escalate;incidents,"Class Figure:
 Attributes: triggers, alerts, when, readings, are
 Methods: trigger, acknowledge, escalate
@@ -452,7 +452,7 @@ class Incident:
     # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
     def __init__(self):
         pass
-",0.13333333333333333,0.2857142857142857,0.18181818181818182,0.9166666666666666,1.0,1.0,0,1,0.0,0,8.030000026337802e-05,0.0,0,1,heuristic_dsl
+",0.13333333333333333,0.2857142857142857,0.18181818181818182,0.9166666666666666,1.0,1.0,0,1,0.0,0,0.00018351300013819127,0.0,0,1,heuristic_dsl
 out_of_pattern_business_rules,out_of_pattern,heuristic_baseline,local,baseline_or_mock_only,B_no_dsl,A sensor event triggers alerts when readings are outside configured thresholds. Operators acknowledge alerts and may escalate incidents.,sensor;event;triggers;alerts;when;readings;are;outside;configured;thresholds;operators;acknowledge;may;escalate;incidents,,,"class Sensor:
     # Regra de negocio: Gerado diretamente do CIM sem DSL
     def __init__(self, event, triggers, alerts, when, readings):
@@ -461,7 +461,7 @@ out_of_pattern_business_rules,out_of_pattern,heuristic_baseline,local,baseline_o
         self.alerts = alerts
         self.when = when
         self.readings = readings
-",0.13333333333333333,0.2857142857142857,0.18181818181818182,0.0,0.0,0.0,0,1,0.0,0,1.889999839477241e-05,0.0,0,2,heuristic_direct_code
+",0.13333333333333333,0.2857142857142857,0.18181818181818182,0.0,0.0,0.0,0,1,0.0,0,3.819700032181572e-05,0.0,0,2,heuristic_direct_code
 out_of_pattern_business_rules,out_of_pattern,heuristic_baseline,local,baseline_or_mock_only,C_multilayer_dsl,A sensor event triggers alerts when readings are outside configured thresholds. Operators acknowledge alerts and may escalate incidents.,sensor;event;triggers;alerts;when;readings;are;outside;configured;thresholds;operators;acknowledge;may;escalate;incidents,"RequirementEntity: Figure
 RequirementEntity: SensorEvent
 RequirementEntity: Alert
@@ -511,4 +511,4 @@ class Incident:
     # Regra de negocio: Derivada de DSL de requisitos e design
     def __init__(self):
         pass
-",0.13333333333333333,0.2857142857142857,0.18181818181818182,0.25,1.0,1.0,0,1,0.0,0,7.60000039008446e-05,0.0,0,1,heuristic_multilayer_dsl
+",0.13333333333333333,0.2857142857142857,0.18181818181818182,0.25,1.0,1.0,0,1,0.0,0,0.0001503640000919404,0.0,0,1,heuristic_multilayer_dsl

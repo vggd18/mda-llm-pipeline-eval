@@ -41,7 +41,7 @@ class StorageDevice:
         pass
 
 # TODO: regra de negocio mudou; artefato requer reconciliacao manual.
-",0.4375,0.7777777777777778,0.56,0.7857142857142857,1.0,1.0,0,1,0.0,1,7.020000339252874e-05,0.0,0,1,heuristic_dsl | business_rule_change_requested=Storage devices may be external or internal and peripherals can be optional | user_modification=User manually renamed StorageDevice to Drive in the DSL.,business_rule
+",0.4375,0.7777777777777778,0.56,0.7857142857142857,1.0,1.0,0,1,0.0,1,9.629300029700971e-05,0.0,0,1,heuristic_dsl | business_rule_change_requested=Storage devices may be external or internal and peripherals can be optional | user_modification=User manually renamed StorageDevice to Drive in the DSL.,business_rule
 scenario_2_editorial,medium,heuristic_baseline,local,baseline_or_mock_only,A_full_pipeline,"An editorial document has sections, paragraphs, figures and references. An author writes the document and an editor reviews and validates it.",editorial;document;sections;paragraphs;figures;references;author;writes;editor;reviews;validates,"Class Document:
 Attributes: editorial, sections, paragraphs, figures, references
 Methods: write, review, validate
@@ -86,7 +86,7 @@ class Reference:
     # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
     def __init__(self):
         pass
-",0.2727272727272727,0.3333333333333333,0.3,0.9333333333333333,1.0,0.5,0,1,0.0,0,8.850000449456275e-05,0.0,0,1,heuristic_dsl,quality
+",0.2727272727272727,0.3333333333333333,0.3,0.9333333333333333,1.0,0.5,0,1,0.0,0,0.00010657799975888338,0.0,0,1,heuristic_dsl,quality
 scenario_2_editorial,medium,heuristic_baseline,local,baseline_or_mock_only,B_no_dsl,"An editorial document has sections, paragraphs, figures and references. An author writes the document and an editor reviews and validates it.",editorial;document;sections;paragraphs;figures;references;author;writes;editor;reviews;validates,,,"class Editorial:
     # Regra de negocio: Gerado diretamente do CIM sem DSL
     def __init__(self, document, sections, paragraphs, figures, references):
@@ -95,7 +95,7 @@ scenario_2_editorial,medium,heuristic_baseline,local,baseline_or_mock_only,B_no_
         self.paragraphs = paragraphs
         self.figures = figures
         self.references = references
-",0.2727272727272727,0.3333333333333333,0.3,0.0,0.0,0.25,0,1,0.0,0,2.0699997548945248e-05,0.0,0,2,heuristic_direct_code,quality
+",0.2727272727272727,0.3333333333333333,0.3,0.0,0.0,0.25,0,1,0.0,0,2.6258999696437968e-05,0.0,0,2,heuristic_direct_code,quality
 scenario_2_editorial,medium,heuristic_baseline,local,baseline_or_mock_only,C_multilayer_dsl,"An editorial document has sections, paragraphs, figures and references. An author writes the document and an editor reviews and validates it.",editorial;document;sections;paragraphs;figures;references;author;writes;editor;reviews;validates,"RequirementEntity: Document
 RequirementEntity: Section
 RequirementEntity: Paragraph
@@ -145,7 +145,7 @@ class Reference:
     # Regra de negocio: Derivada de DSL de requisitos e design
     def __init__(self):
         pass
-",0.2727272727272727,0.3333333333333333,0.3,0.06666666666666667,1.0,0.5,0,1,0.0,0,8.099999831756577e-05,0.0,0,1,heuristic_multilayer_dsl,quality
+",0.2727272727272727,0.3333333333333333,0.3,0.06666666666666667,1.0,0.5,0,1,0.0,0,0.00010180200024478836,0.0,0,1,heuristic_multilayer_dsl,quality
 scenario_2_editorial,medium,heuristic_baseline,local,baseline_or_mock_only,E_generalization,"An editorial document has sections, paragraphs, figures and references. An author writes the document and an editor reviews and validates it.",editorial;document;sections;paragraphs;figures;references;author;writes;editor;reviews;validates,"Class Document:
 Attributes: editorial, sections, paragraphs, figures, references
 Methods: write, review, validate
@@ -190,52 +190,7 @@ class Reference:
     # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
     def __init__(self):
         pass
-",0.2727272727272727,0.3333333333333333,0.3,0.9333333333333333,1.0,0.5,0,1,0.0,0,7.259999983943999e-05,0.0,0,1,heuristic_dsl,quality
-scenario_2_editorial,medium,heuristic_baseline,local,baseline_or_mock_only,F_model_comparison,"An editorial document has sections, paragraphs, figures and references. An author writes the document and an editor reviews and validates it.",editorial;document;sections;paragraphs;figures;references;author;writes;editor;reviews;validates,"Class Document:
-Attributes: editorial, sections, paragraphs, figures, references
-Methods: write, review, validate
-Class Section:
-Class Paragraph:
-Class Figure:
-Class Reference:
-Relation: Document association Section
-Relation: Document association Paragraph",,"class Document:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self, editorial, sections, paragraphs, figures, references, section, paragraph):
-        self.editorial = editorial
-        self.sections = sections
-        self.paragraphs = paragraphs
-        self.figures = figures
-        self.references = references
-        self.section = section
-        self.paragraph = paragraph
-    def write(self):
-        pass
-    def review(self):
-        pass
-    def validate(self):
-        pass
-
-class Section:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self):
-        pass
-
-class Paragraph:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self):
-        pass
-
-class Figure:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self):
-        pass
-
-class Reference:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self):
-        pass
-",0.2727272727272727,0.3333333333333333,0.3,0.9333333333333333,1.0,0.5,0,1,0.0,0,6.829999620094895e-05,0.0,0,1,heuristic_dsl,quality
+",0.2727272727272727,0.3333333333333333,0.3,0.9333333333333333,1.0,0.5,0,1,0.0,0,9.357999988424126e-05,0.0,0,1,heuristic_dsl,quality
 scenario_2_editorial,medium,heuristic_baseline,local,baseline_or_mock_only,D_business_rule_change,"An editorial document has sections, paragraphs, figures and references. An author writes the document and an editor reviews and validates it.",editorial;document;sections;paragraphs;figures;references;author;writes;editor;reviews;validates,"Class Document:
 Attributes: editorial, sections, paragraphs, figures, references
 Methods: write, review, validate
@@ -282,7 +237,7 @@ class Reference:
         pass
 
 # TODO: regra de negocio mudou; artefato requer reconciliacao manual.
-",0.2727272727272727,0.3333333333333333,0.3,0.9333333333333333,1.0,0.5,0,1,0.0,1,7.000000186963007e-05,0.0,0,2,heuristic_dsl | business_rule_change_requested=Reviewer approval is required before editor validation | user_modification=User added Reviewer as a class after initial generation.,business_rule
+",0.2727272727272727,0.3333333333333333,0.3,0.9333333333333333,1.0,0.5,0,1,0.0,1,0.00012915200022689532,0.0,0,2,heuristic_dsl | business_rule_change_requested=Reviewer approval is required before editor validation | user_modification=User added Reviewer as a class after initial generation.,business_rule
 scenario_3_library,complex,heuristic_baseline,local,baseline_or_mock_only,A_full_pipeline,"A municipal library manages books, members and loans. A member borrows books, returns loans and may pay penalties for late returns.",municipal;library;manages;books;members;loans;member;borrows;returns;may;pay;penalties;for;late,"Class Library:
 Attributes: municipal, manages, books, members, loans
 Methods: manage, borrow, return, pay
@@ -323,7 +278,7 @@ class Loan:
     # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
     def __init__(self):
         pass
-",0.14285714285714285,0.2857142857142857,0.19047619047619047,0.8333333333333334,1.0,1.0,0,1,0.0,0,7.210000330815092e-05,0.0,0,1,heuristic_dsl,quality
+",0.14285714285714285,0.2857142857142857,0.19047619047619047,0.8333333333333334,1.0,1.0,0,1,0.0,0,9.724499977892265e-05,0.0,0,1,heuristic_dsl,quality
 scenario_3_library,complex,heuristic_baseline,local,baseline_or_mock_only,B_no_dsl,"A municipal library manages books, members and loans. A member borrows books, returns loans and may pay penalties for late returns.",municipal;library;manages;books;members;loans;member;borrows;returns;may;pay;penalties;for;late,,,"class Municipal:
     # Regra de negocio: Gerado diretamente do CIM sem DSL
     def __init__(self, library, manages, books, members, loans):
@@ -332,7 +287,7 @@ scenario_3_library,complex,heuristic_baseline,local,baseline_or_mock_only,B_no_d
         self.books = books
         self.members = members
         self.loans = loans
-",0.14285714285714285,0.2857142857142857,0.19047619047619047,0.0,0.0,0.0,0,1,0.0,0,2.0499996026046574e-05,0.0,0,2,heuristic_direct_code,quality
+",0.14285714285714285,0.2857142857142857,0.19047619047619047,0.0,0.0,0.0,0,1,0.0,0,2.479700015101116e-05,0.0,0,2,heuristic_direct_code,quality
 scenario_3_library,complex,heuristic_baseline,local,baseline_or_mock_only,C_multilayer_dsl,"A municipal library manages books, members and loans. A member borrows books, returns loans and may pay penalties for late returns.",municipal;library;manages;books;members;loans;member;borrows;returns;may;pay;penalties;for;late,"RequirementEntity: Library
 RequirementEntity: Book
 RequirementEntity: Member
@@ -377,7 +332,7 @@ class Loan:
     # Regra de negocio: Derivada de DSL de requisitos e design
     def __init__(self):
         pass
-",0.14285714285714285,0.2857142857142857,0.19047619047619047,0.3333333333333333,1.0,1.0,0,1,0.0,0,6.989999383222312e-05,0.0,0,1,heuristic_multilayer_dsl,quality
+",0.14285714285714285,0.2857142857142857,0.19047619047619047,0.3333333333333333,1.0,1.0,0,1,0.0,0,8.87220003278344e-05,0.0,0,1,heuristic_multilayer_dsl,quality
 scenario_3_library,complex,heuristic_baseline,local,baseline_or_mock_only,E_generalization,"A municipal library manages books, members and loans. A member borrows books, returns loans and may pay penalties for late returns.",municipal;library;manages;books;members;loans;member;borrows;returns;may;pay;penalties;for;late,"Class Library:
 Attributes: municipal, manages, books, members, loans
 Methods: manage, borrow, return, pay
@@ -418,48 +373,7 @@ class Loan:
     # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
     def __init__(self):
         pass
-",0.14285714285714285,0.2857142857142857,0.19047619047619047,0.8333333333333334,1.0,1.0,0,1,0.0,0,6.649999704677612e-05,0.0,0,1,heuristic_dsl,quality
-scenario_3_library,complex,heuristic_baseline,local,baseline_or_mock_only,F_model_comparison,"A municipal library manages books, members and loans. A member borrows books, returns loans and may pay penalties for late returns.",municipal;library;manages;books;members;loans;member;borrows;returns;may;pay;penalties;for;late,"Class Library:
-Attributes: municipal, manages, books, members, loans
-Methods: manage, borrow, return, pay
-Class Book:
-Class Member:
-Class Loan:
-Relation: Library association Book
-Relation: Library association Member",,"class Library:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self, municipal, manages, books, members, loans, book, member):
-        self.municipal = municipal
-        self.manages = manages
-        self.books = books
-        self.members = members
-        self.loans = loans
-        self.book = book
-        self.member = member
-    def manage(self):
-        pass
-    def borrow(self):
-        pass
-    def return_value(self):
-        pass
-    def pay(self):
-        pass
-
-class Book:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self):
-        pass
-
-class Member:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self):
-        pass
-
-class Loan:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self):
-        pass
-",0.14285714285714285,0.2857142857142857,0.19047619047619047,0.8333333333333334,1.0,1.0,0,1,0.0,0,7.049999840091914e-05,0.0,0,1,heuristic_dsl,quality
+",0.14285714285714285,0.2857142857142857,0.19047619047619047,0.8333333333333334,1.0,1.0,0,1,0.0,0,9.916700037138071e-05,0.0,0,1,heuristic_dsl,quality
 scenario_3_library,complex,heuristic_baseline,local,baseline_or_mock_only,D_business_rule_change,"A municipal library manages books, members and loans. A member borrows books, returns loans and may pay penalties for late returns.",municipal;library;manages;books;members;loans;member;borrows;returns;may;pay;penalties;for;late,"Class Library:
 Attributes: municipal, manages, books, members, loans
 Methods: manage, borrow, return, pay
@@ -502,7 +416,7 @@ class Loan:
         pass
 
 # TODO: regra de negocio mudou; artefato requer reconciliacao manual.
-",0.14285714285714285,0.2857142857142857,0.19047619047619047,0.8333333333333334,1.0,1.0,0,1,0.0,1,6.750000466126949e-05,0.0,0,2,heuristic_dsl | business_rule_change_requested=Late loans create a penalty and block new borrowing until payment | user_modification=User added Penalty to the generated DSL and code skeleton.,business_rule
+",0.14285714285714285,0.2857142857142857,0.19047619047619047,0.8333333333333334,1.0,1.0,0,1,0.0,1,8.403499987252872e-05,0.0,0,2,heuristic_dsl | business_rule_change_requested=Late loans create a penalty and block new borrowing until payment | user_modification=User added Penalty to the generated DSL and code skeleton.,business_rule
 ambiguous_implicit_relation,ambiguous,heuristic_baseline,local,baseline_or_mock_only,D_business_rule_change,Each order contains multiple items. The customer receives a message when the order is confirmed.,order;contains;items;customer;receives;message;when;confirmed,"Class Order:
 Attributes: contains, items, receives, when, confirmed
 Methods: confirm, receive
@@ -541,7 +455,7 @@ class Message:
         pass
 
 # TODO: regra de negocio mudou; artefato requer reconciliacao manual.
-",0.5,0.8,0.6153846153846154,1.0,1.0,1.0,0,1,0.0,1,5.870000313734636e-05,0.0,0,1,heuristic_dsl | business_rule_change_requested=Confirmed orders may include digital and physical items | user_modification=User changed Item to OrderItem in generated artifact.,business_rule
+",0.5,0.8,0.6153846153846154,1.0,1.0,1.0,0,1,0.0,1,0.000129904000004899,0.0,0,1,heuristic_dsl | business_rule_change_requested=Confirmed orders may include digital and physical items | user_modification=User changed Item to OrderItem in generated artifact.,business_rule
 incomplete_coreference,incomplete,heuristic_baseline,local,baseline_or_mock_only,B_no_dsl,The class Car has several attributes. It also includes the getSpeed method.,class;car;attributes;getspeed;method,,,"class Class:
     # Regra de negocio: Gerado diretamente do CIM sem DSL
     def __init__(self, car, attributes, getspeed, method):
@@ -549,7 +463,7 @@ incomplete_coreference,incomplete,heuristic_baseline,local,baseline_or_mock_only
         self.attributes = attributes
         self.getspeed = getspeed
         self.method = method
-",0.6,1.0,0.7499999999999999,0.0,0.0,0.0,0,1,0.0,0,1.5199999324977398e-05,0.0,0,1,heuristic_direct_code,quality
+",0.6,1.0,0.7499999999999999,0.0,0.0,0.0,0,1,0.0,0,3.488199990897556e-05,0.0,0,1,heuristic_direct_code,quality
 incomplete_coreference,incomplete,heuristic_baseline,local,baseline_or_mock_only,D_business_rule_change,The class Car has several attributes. It also includes the getSpeed method.,class;car;attributes;getspeed;method,"Class Car:
 Attributes: class, attributes, getspeed, method",,"class Car:
     # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
@@ -560,7 +474,7 @@ Attributes: class, attributes, getspeed, method",,"class Car:
         self.method = method
 
 # TODO: regra de negocio mudou; artefato requer reconciliacao manual.
-",0.6,1.0,0.7499999999999999,0.75,1.0,0.5,0,1,0.0,1,2.600000152597204e-05,0.0,0,1,heuristic_dsl | business_rule_change_requested=Car speed must be non-negative | user_modification=User added speed but did not specify unit.,business_rule
+",0.6,1.0,0.7499999999999999,0.75,1.0,0.5,0,1,0.0,1,5.024500023864675e-05,0.0,0,1,heuristic_dsl | business_rule_change_requested=Car speed must be non-negative | user_modification=User added speed but did not specify unit.,business_rule
 out_of_pattern_business_rules,out_of_pattern,heuristic_baseline,local,baseline_or_mock_only,A_full_pipeline,A sensor event triggers alerts when readings are outside configured thresholds. Operators acknowledge alerts and may escalate incidents.,sensor;event;triggers;alerts;when;readings;are;outside;configured;thresholds;operators;acknowledge;may;escalate;incidents,"Class Figure:
 Attributes: triggers, alerts, when, readings, are
 Methods: trigger, acknowledge, escalate
@@ -605,7 +519,7 @@ class Incident:
     # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
     def __init__(self):
         pass
-",0.13333333333333333,0.2857142857142857,0.18181818181818182,0.9166666666666666,1.0,1.0,0,1,0.0,0,8.030000026337802e-05,0.0,0,1,heuristic_dsl,quality
+",0.13333333333333333,0.2857142857142857,0.18181818181818182,0.9166666666666666,1.0,1.0,0,1,0.0,0,0.00018351300013819127,0.0,0,1,heuristic_dsl,quality
 out_of_pattern_business_rules,out_of_pattern,heuristic_baseline,local,baseline_or_mock_only,B_no_dsl,A sensor event triggers alerts when readings are outside configured thresholds. Operators acknowledge alerts and may escalate incidents.,sensor;event;triggers;alerts;when;readings;are;outside;configured;thresholds;operators;acknowledge;may;escalate;incidents,,,"class Sensor:
     # Regra de negocio: Gerado diretamente do CIM sem DSL
     def __init__(self, event, triggers, alerts, when, readings):
@@ -614,7 +528,7 @@ out_of_pattern_business_rules,out_of_pattern,heuristic_baseline,local,baseline_o
         self.alerts = alerts
         self.when = when
         self.readings = readings
-",0.13333333333333333,0.2857142857142857,0.18181818181818182,0.0,0.0,0.0,0,1,0.0,0,1.889999839477241e-05,0.0,0,2,heuristic_direct_code,quality
+",0.13333333333333333,0.2857142857142857,0.18181818181818182,0.0,0.0,0.0,0,1,0.0,0,3.819700032181572e-05,0.0,0,2,heuristic_direct_code,quality
 out_of_pattern_business_rules,out_of_pattern,heuristic_baseline,local,baseline_or_mock_only,C_multilayer_dsl,A sensor event triggers alerts when readings are outside configured thresholds. Operators acknowledge alerts and may escalate incidents.,sensor;event;triggers;alerts;when;readings;are;outside;configured;thresholds;operators;acknowledge;may;escalate;incidents,"RequirementEntity: Figure
 RequirementEntity: SensorEvent
 RequirementEntity: Alert
@@ -664,7 +578,7 @@ class Incident:
     # Regra de negocio: Derivada de DSL de requisitos e design
     def __init__(self):
         pass
-",0.13333333333333333,0.2857142857142857,0.18181818181818182,0.25,1.0,1.0,0,1,0.0,0,7.60000039008446e-05,0.0,0,1,heuristic_multilayer_dsl,quality
+",0.13333333333333333,0.2857142857142857,0.18181818181818182,0.25,1.0,1.0,0,1,0.0,0,0.0001503640000919404,0.0,0,1,heuristic_multilayer_dsl,quality
 out_of_pattern_business_rules,out_of_pattern,heuristic_baseline,local,baseline_or_mock_only,E_generalization,A sensor event triggers alerts when readings are outside configured thresholds. Operators acknowledge alerts and may escalate incidents.,sensor;event;triggers;alerts;when;readings;are;outside;configured;thresholds;operators;acknowledge;may;escalate;incidents,"Class Figure:
 Attributes: triggers, alerts, when, readings, are
 Methods: trigger, acknowledge, escalate
@@ -709,52 +623,7 @@ class Incident:
     # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
     def __init__(self):
         pass
-",0.13333333333333333,0.2857142857142857,0.18181818181818182,0.9166666666666666,1.0,1.0,0,1,0.0,0,9.539999882690609e-05,0.0,0,1,heuristic_dsl,quality
-out_of_pattern_business_rules,out_of_pattern,heuristic_baseline,local,baseline_or_mock_only,F_model_comparison,A sensor event triggers alerts when readings are outside configured thresholds. Operators acknowledge alerts and may escalate incidents.,sensor;event;triggers;alerts;when;readings;are;outside;configured;thresholds;operators;acknowledge;may;escalate;incidents,"Class Figure:
-Attributes: triggers, alerts, when, readings, are
-Methods: trigger, acknowledge, escalate
-Class SensorEvent:
-Class Alert:
-Class Operator:
-Class Incident:
-Relation: Figure association SensorEvent
-Relation: Figure association Alert",,"class Figure:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self, triggers, alerts, when, readings, are, sensorevent, alert):
-        self.triggers = triggers
-        self.alerts = alerts
-        self.when = when
-        self.readings = readings
-        self.are = are
-        self.sensorevent = sensorevent
-        self.alert = alert
-    def trigger(self):
-        pass
-    def acknowledge(self):
-        pass
-    def escalate(self):
-        pass
-
-class SensorEvent:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self):
-        pass
-
-class Alert:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self):
-        pass
-
-class Operator:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self):
-        pass
-
-class Incident:
-    # Regra de negocio: Pipeline aproximado inspirado no artigo; codigo esqueleto Python.
-    def __init__(self):
-        pass
-",0.13333333333333333,0.2857142857142857,0.18181818181818182,0.9166666666666666,1.0,1.0,0,1,0.0,0,7.299999560927972e-05,0.0,0,1,heuristic_dsl,quality
+",0.13333333333333333,0.2857142857142857,0.18181818181818182,0.9166666666666666,1.0,1.0,0,1,0.0,0,0.00015765399984957185,0.0,0,1,heuristic_dsl,quality
 out_of_pattern_business_rules,out_of_pattern,heuristic_baseline,local,baseline_or_mock_only,D_business_rule_change,A sensor event triggers alerts when readings are outside configured thresholds. Operators acknowledge alerts and may escalate incidents.,sensor;event;triggers;alerts;when;readings;are;outside;configured;thresholds;operators;acknowledge;may;escalate;incidents,"Class Figure:
 Attributes: triggers, alerts, when, readings, are
 Methods: trigger, acknowledge, escalate
@@ -801,4 +670,4 @@ class Incident:
         pass
 
 # TODO: regra de negocio mudou; artefato requer reconciliacao manual.
-",0.13333333333333333,0.2857142857142857,0.18181818181818182,0.9166666666666666,1.0,1.0,0,1,0.0,1,0.0002477000016369857,0.0,0,2,heuristic_dsl | business_rule_change_requested=Escalation requires supervisor approval | user_modification=User added Incident as an entity after generation.,business_rule
+",0.13333333333333333,0.2857142857142857,0.18181818181818182,0.9166666666666666,1.0,1.0,0,1,0.0,1,0.00016028900017772685,0.0,0,2,heuristic_dsl | business_rule_change_requested=Escalation requires supervisor approval | user_modification=User added Incident as an entity after generation.,business_rule

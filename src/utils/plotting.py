@@ -31,9 +31,9 @@ def write_figures(raw: pd.DataFrame, summary: pd.DataFrame, out_dir: Path) -> No
         bar(summary, "model_experiment", "end_to_end_success", "Sucesso end-to-end", "end_to_end_success.png")
 
     if not raw.empty:
-        errors = raw.groupby("experiment", as_index=False)[["syntax_errors", "semantic_errors"]].sum()
-        errors["total_errors"] = errors["syntax_errors"] + errors["semantic_errors"]
-        bar(errors, "experiment", "total_errors", "Erros por etapa do pipeline", "errors_by_stage.png")
+        errors = raw.groupby(["model", "experiment"], as_index=False)["stage_failure_count"].mean()
+        errors["model_experiment"] = errors["model"] + " / " + errors["experiment"]
+        bar(errors, "model_experiment", "stage_failure_count", "Falhas medias por modelo/etapa", "errors_by_stage.png")
 
         ablation = raw[raw["experiment"].isin(["A_full_pipeline", "B_no_dsl", "C_multilayer_dsl"])]
         if not ablation.empty:
