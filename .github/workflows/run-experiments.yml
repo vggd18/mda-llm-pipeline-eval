@@ -1,0 +1,31 @@
+name: Run Experiments
+
+on:
+  workflow_dispatch:
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+
+    env:
+      OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+      GITHUB_TOKEN_MODELS: ${{ secrets.GH_MODELS_TOKEN }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - run: pip install -r requirements.txt
+
+      - name: Run experiments
+        run: |
+          export GITHUB_TOKEN="$GITHUB_TOKEN_MODELS"
+          python -m src.run_experiments
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: experiment-results
+          path: results/
