@@ -13,8 +13,8 @@ models:
     base_url: "https://models.github.ai/inference"
     api_key_env: "GITHUB_TOKEN"
     request_delay_seconds: 4
-    max_retries: 3
-    timeout_seconds: 180
+    max_retries: 0
+    timeout_seconds: 45
     cost_per_1k_input_tokens_usd: 0.0
     cost_per_1k_output_tokens_usd: 0.0
     notes: "GPT-4o mini via GitHub Models."
@@ -26,8 +26,8 @@ models:
     base_url: "https://models.github.ai/inference"
     api_key_env: "GITHUB_TOKEN"
     request_delay_seconds: 5
-    max_retries: 3
-    timeout_seconds: 180
+    max_retries: 0
+    timeout_seconds: 45
     cost_per_1k_input_tokens_usd: 0.0
     cost_per_1k_output_tokens_usd: 0.0
     notes: "GPT-4.1 via GitHub Models."
@@ -39,8 +39,8 @@ models:
     base_url: "https://openrouter.ai/api/v1"
     api_key_env: "OPENROUTER_API_KEY"
     request_delay_seconds: 10
-    max_retries: 3
-    timeout_seconds: 180
+    max_retries: 0
+    timeout_seconds: 45
     cost_per_1k_input_tokens_usd: 0.0
     cost_per_1k_output_tokens_usd: 0.0
     notes: "Qwen3 Coder gratuito via OpenRouter; foco em codigo/DSL."
@@ -52,8 +52,8 @@ models:
     base_url: "https://openrouter.ai/api/v1"
     api_key_env: "OPENROUTER_API_KEY"
     request_delay_seconds: 10
-    max_retries: 3
-    timeout_seconds: 180
+    max_retries: 0
+    timeout_seconds: 45
     cost_per_1k_input_tokens_usd: 0.0
     cost_per_1k_output_tokens_usd: 0.0
     notes: "Llama 3.3 70B gratuito via OpenRouter."
@@ -65,8 +65,8 @@ models:
     base_url: "https://openrouter.ai/api/v1"
     api_key_env: "OPENROUTER_API_KEY"
     request_delay_seconds: 10
-    max_retries: 3
-    timeout_seconds: 180
+    max_retries: 0
+    timeout_seconds: 45
     cost_per_1k_input_tokens_usd: 0.0
     cost_per_1k_output_tokens_usd: 0.0
     notes: "GPT-OSS 120B gratuito via OpenRouter."
