@@ -7,6 +7,10 @@ experiments:
   D_business_rule_change: true
   E_generalization: true
   F_model_comparison: true
+runtime:
+  max_cases: 0
+  skip_business_rule_model_update: true
+  write_partial_results: true
 evaluation:
   require_gold_standard_for_correctness: true
   syntactic_validation_language: python
