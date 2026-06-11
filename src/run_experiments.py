@@ -128,25 +128,42 @@ def main() -> None:
     ensure_dirs()
 
     config = load_yaml(ROOT / "config" / "experiment_config.yaml")
+    runtime_config = config.get("runtime", {})
     random.seed(config.get("seed", 42))
 
     input_cases = pd.read_csv(ROOT / "data" / "input_cases_template.csv").fillna("")
+    max_cases = int(runtime_config.get("max_cases") or 0)
+    if max_cases > 0:
+        input_cases = input_cases.head(max_cases)
+
     gold_df = pd.read_csv(ROOT / "data" / "gold_standard_template.csv").fillna("")
     gold_by_case = {row["case_id"]: row for row in gold_df.to_dict(orient="records")}
     models = [m for m in load_yaml(ROOT / "config" / "models.yaml").get("models", []) if m.get("enabled")]
 
-    experiment_fns = {
+    configured_experiments = config.get("experiments", {})
+    all_experiment_fns = {
         "A_full_pipeline": run_full_pipeline,
         "B_no_dsl": run_no_dsl_pipeline,
         "C_multilayer_dsl": run_multilayer_dsl_pipeline,
         "E_generalization": run_full_pipeline,
     }
+    experiment_fns = {
+        name: fn
+        for name, fn in all_experiment_fns.items()
+        if configured_experiments.get(name, True)
+    }
+
+    run_business_rule_change = configured_experiments.get("D_business_rule_change", True)
+    skip_business_rule_model_update = bool(runtime_config.get("skip_business_rule_model_update", False))
+    write_partial_results = bool(runtime_config.get("write_partial_results", True))
+    results_dir = ROOT / "results"
 
     rows = []
     for model in models:
         client = build_client(model)
         for case in input_cases.to_dict(orient="records"):
             gold = gold_by_case.get(case["case_id"], {})
+
             for experiment, fn in experiment_fns.items():
                 start = time.perf_counter()
                 try:
@@ -155,22 +172,40 @@ def main() -> None:
                     LOGGER.exception("Falha no experimento %s caso %s", experiment, case["case_id"])
                     output = run_no_dsl_pipeline(f"ERRO: {exc}", client)
                     output.notes += f" | exception={exc}"
+
                 elapsed = time.perf_counter() - start
                 rows.append(_evaluate(case, gold, output, elapsed, model, experiment))
 
-            start = time.perf_counter()
-            base_output = run_full_pipeline(case.get("cim_text", ""), client)
-            changed = apply_business_rule_change_with_model(
-                base_output,
-                case.get("changed_business_rule", ""),
-                case.get("user_modification", ""),
-                client,
-            )
-            elapsed = time.perf_counter() - start
-            rows.append(_evaluate(case, gold, changed, elapsed, model, "D_business_rule_change"))
+            if run_business_rule_change:
+                start = time.perf_counter()
+                base_output = run_full_pipeline(case.get("cim_text", ""), client)
+
+                if skip_business_rule_model_update:
+                    changed = apply_business_rule_change(
+                        base_output,
+                        case.get("changed_business_rule", ""),
+                        case.get("user_modification", ""),
+                    )
+                    changed.notes += " | skipped_model_update_fast_mode"
+                else:
+                    changed = apply_business_rule_change_with_model(
+                        base_output,
+                        case.get("changed_business_rule", ""),
+                        case.get("user_modification", ""),
+                        client,
+                    )
+
+                elapsed = time.perf_counter() - start
+                rows.append(_evaluate(case, gold, changed, elapsed, model, "D_business_rule_change"))
+
+            if write_partial_results:
+                pd.DataFrame(rows).to_csv(
+                    results_dir / "raw_results_partial.csv",
+                    index=False,
+                    encoding="utf-8",
+                )
 
     raw = pd.DataFrame(rows)
-    results_dir = ROOT / "results"
     raw.to_csv(results_dir / "raw_results.csv", index=False, encoding="utf-8")
 
     summary = (
@@ -212,13 +247,22 @@ def main() -> None:
                 "warning": "A metrica agora ignora comentarios Python; mencionar a regra em comentario nao conta como consistencia.",
                 "action": "Verifique business_rule_inconsistencies e semantic_rule_coverage.",
             },
+            {
+                "scope": "fast_mode",
+                "warning": "skip_business_rule_model_update=true reduz chamadas de API e acelera a execucao, mas nao mede a capacidade do modelo de reconciliar mudancas de regra.",
+                "action": "Use esse modo para obter resultados rapidos; rode skip_business_rule_model_update=false apenas se houver tempo.",
+            },
         ]
     )
     validity_notes.to_csv(results_dir / "validity_warnings.csv", index=False, encoding="utf-8")
 
     error_analysis = raw[raw["stage_failure_count"] > 0].copy()
     error_analysis["error_category"] = error_analysis.apply(
-        lambda row: "syntax" if row["syntax_errors"] else "business_rule" if row["business_rule_inconsistencies"] else "quality",
+        lambda row: "syntax"
+        if row["syntax_errors"]
+        else "business_rule"
+        if row["business_rule_inconsistencies"]
+        else "quality",
         axis=1,
     )
     error_analysis.to_csv(results_dir / "error_analysis.csv", index=False, encoding="utf-8")
@@ -238,7 +282,6 @@ def main() -> None:
 
     write_figures(raw, summary, results_dir / "figures")
     LOGGER.info("Resultados gerados em %s", results_dir)
-
 
 if __name__ == "__main__":
     main()
