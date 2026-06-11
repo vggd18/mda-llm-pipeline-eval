@@ -121,7 +121,6 @@ def _evaluate(row: dict, gold: dict, output, elapsed: float, model: dict, experi
         "notes": output.notes,
     }
 
-
 def main() -> None:
     load_dotenv()
     configure_logging()
@@ -159,12 +158,45 @@ def main() -> None:
     results_dir = ROOT / "results"
 
     rows = []
-    for model in models:
+    total_models = len(models)
+    total_cases = len(input_cases)
+
+    LOGGER.info("Modelos habilitados: %s", ", ".join(model.get("name", "") for model in models))
+    LOGGER.info("Casos carregados: %s", total_cases)
+    LOGGER.info("Experimentos habilitados: %s", ", ".join(experiment_fns.keys()))
+    LOGGER.info("D_business_rule_change habilitado: %s", run_business_rule_change)
+    LOGGER.info("skip_business_rule_model_update: %s", skip_business_rule_model_update)
+
+    for model_index, model in enumerate(models, start=1):
+        LOGGER.info(
+            "Iniciando modelo %s/%s: %s (%s)",
+            model_index,
+            total_models,
+            model.get("name"),
+            model.get("provider"),
+        )
+
         client = build_client(model)
-        for case in input_cases.to_dict(orient="records"):
+
+        for case_index, case in enumerate(input_cases.to_dict(orient="records"), start=1):
+            LOGGER.info(
+                "Modelo %s - caso %s/%s: %s",
+                model.get("name"),
+                case_index,
+                total_cases,
+                case.get("case_id"),
+            )
+
             gold = gold_by_case.get(case["case_id"], {})
 
             for experiment, fn in experiment_fns.items():
+                LOGGER.info(
+                    "Rodando experimento %s | modelo=%s | caso=%s",
+                    experiment,
+                    model.get("name"),
+                    case.get("case_id"),
+                )
+
                 start = time.perf_counter()
                 try:
                     output = fn(case.get("cim_text", ""), client)
@@ -177,6 +209,12 @@ def main() -> None:
                 rows.append(_evaluate(case, gold, output, elapsed, model, experiment))
 
             if run_business_rule_change:
+                LOGGER.info(
+                    "Rodando experimento D_business_rule_change | modelo=%s | caso=%s",
+                    model.get("name"),
+                    case.get("case_id"),
+                )
+
                 start = time.perf_counter()
                 base_output = run_full_pipeline(case.get("cim_text", ""), client)
 
@@ -204,6 +242,12 @@ def main() -> None:
                     index=False,
                     encoding="utf-8",
                 )
+
+        LOGGER.info(
+            "Modelo finalizado: %s. Resultados acumulados: %s linhas",
+            model.get("name"),
+            len(rows),
+        )
 
     raw = pd.DataFrame(rows)
     raw.to_csv(results_dir / "raw_results.csv", index=False, encoding="utf-8")
@@ -282,6 +326,7 @@ def main() -> None:
 
     write_figures(raw, summary, results_dir / "figures")
     LOGGER.info("Resultados gerados em %s", results_dir)
+
 
 if __name__ == "__main__":
     main()
