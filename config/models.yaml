@@ -8,7 +8,7 @@ models:
 
   - name: github_models_gpt4o_mini
     provider: openai_compatible
-    enabled: true
+    enabled: false
     model_id: "openai/gpt-4o-mini"
     base_url: "https://models.github.ai/inference"
     api_key_env: "GITHUB_TOKEN"
@@ -21,7 +21,7 @@ models:
 
   - name: github_models_gpt41
     provider: openai_compatible
-    enabled: true
+    enabled: false
     model_id: "openai/gpt-4.1"
     base_url: "https://models.github.ai/inference"
     api_key_env: "GITHUB_TOKEN"
